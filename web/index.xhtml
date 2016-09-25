@@ -3,36 +3,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:tp="http://java.sun.com/jsf/composite/components/loginForm" >
+      xmlns:tp="http://java.sun.com/jsf/composite/components/loginForm" 
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Wemis software</title>
     </h:head>
-        <h:body style="background-color: gainsboro;">
-            <ui:composition template="templates/common.xhtml">
-                <ui:define name="contents">
-                    <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>                
-                    <div align="center" class="divForm">
-                        <!-- error messages -->
-                        <div align="center" class="divErrorMsg">
-                            <h:form>
-                                <h:outputText class="lblError"  value="#{currentUserBean.currentMessage}"></h:outputText>
-                            </h:form>                   
-                        </div>
-
-                        <tp:loginForm
-                            userLabel="Korisnik"
-                            userValue="#{currentUserBean.userName}"
-                            pwdLabel="Lozinka"
-                            pwdValue="#{currentUserBean.userPassword}"
-                            hostLabel="Server"
-                            hostValue="#{currentUserBean.dbHost}"
-                            hostValues="#{currentUserBean.hosts}"
-                            btnSubmitLabel="Loguj se"
-                            btnSubmit="#{currentUserBean.login()}">
-                        </tp:loginForm>
+    <h:body style="background-color: gainsboro;">
+        <ui:composition template="templates/common.xhtml">
+            <ui:define name="contents">
+                <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>                
+                <div align="center" class="divForm">
+                    <!-- error messages -->
+                    <div align="center" class="divErrorMsg">
+                        <h:form>
+                            <h:outputText class="lblError"  value="#{currentUserBean.currentMessage}"></h:outputText>
+                        </h:form>                   
                     </div>
-                </ui:define>
-            </ui:composition>
-        </h:body>
+                    <tp:loginForm
+                        userLabel="Korisnik"
+                        userValue="#{currentUserBean.userName}"
+                        pwdLabel="Lozinka"
+                        pwdValue="#{currentUserBean.userPassword}"
+                        hostLabel="Server"
+                        hostValue="#{currentUserBean.dbHost}"
+                        hostValues="#{currentUserBean.hosts}"
+                        btnSubmitLabel="Loguj se"
+                        btnSubmit="#{currentUserBean.login()}">
+                    </tp:loginForm>
+                    <h3></h3>
+                    <p:galleria value="#{currentUserBean.images}" var="image" panelWidth="1300" panelHeight="280" 
+                                showCaption="false" style="background-color: gainsboro; border-radius: 15px 15px 15px 15px;">
+                        <p:graphicImage name="/doctors/#{image}" alt="Hospitals"/>
+                    </p:galleria>  
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
 

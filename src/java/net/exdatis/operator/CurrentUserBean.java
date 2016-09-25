@@ -19,7 +19,10 @@ package net.exdatis.operator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import net.exdatis.config.ReadDbHost;
@@ -43,14 +46,39 @@ public class CurrentUserBean {
     private Map<String, Object> hosts =  ReadDbHost.getDbHostMap();
     private String currentMessage;
     
+    private List<String> images;
+    
     /**
      * Server host za uspostavljanje konekcije sa bazom podataka;
      */
     private String dbHost;
 
     public CurrentUserBean() {
- 
+
     }
+    
+    @PostConstruct
+    public void initImages(){
+        images = new ArrayList<String>();
+        //images.add("Hospital-Red-icon.png");
+        //images.add("Hospital-icon.png");
+        //images.add("hospital-icon2.png");
+        //images.add("hospital-icon3.png");
+        images.add("Doctor-Consultation.png");
+        images.add("doctor1.png");
+        images.add("doctor2.png");
+        images.add("doctor3.png");
+        images.add("female_doctor.png");
+        images.add("doctor-fullbody.png");
+        images.add("big-model.png");
+    }
+    
+    public List<String> getImages() {
+        return images;
+    }
+
+    
+    
 
     public CurrentUserBean(String userName, String userPassword) {
         this.userName = userName;

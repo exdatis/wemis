@@ -44,9 +44,7 @@
                 </h:inputText>
 
                 <h:outputLabel value="#{cc.attrs.nameLabel}"></h:outputLabel>
-                <h:inputText id="fieldName" value="#{cc.attrs.nameValue}" size="45" label="Prezime i ime">
-                    <f:validateLength minimum="1" maximum="70" ></f:validateLength>
-                    <h:message for="fieldName"></h:message>
+                <h:inputText id="fieldName" value="#{cc.attrs.nameValue}" size="45">
                 </h:inputText>
                 
                 <h:outputLabel value="#{cc.attrs.lboLabel}"></h:outputLabel>                
@@ -54,9 +52,7 @@
                 </h:inputText>
 
                 <h:outputLabel value="#{cc.attrs.jmbgLabel}"></h:outputLabel>
-                <h:inputText id="fieldJMBG" value="#{cc.attrs.jmbgValue}" size="30" label="JMBG">
-                    <f:validateLength minimum="1" maximum="30" ></f:validateLength>
-                    <h:message for="fieldJMBG"></h:message>
+                <h:inputText id="fieldJMBG" value="#{cc.attrs.jmbgValue}" size="30">
                 </h:inputText>
 
                 <h:outputLabel value="#{cc.attrs.healthCardLabel}"></h:outputLabel>                
