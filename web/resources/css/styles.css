@@ -26,9 +26,6 @@ and open the template in the editor.
     border-width: thin;
 }
 
-.columnSubHeader{
-    align-items: center;
-}
 
 .divFooter{
     clear: both;
