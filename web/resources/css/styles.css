@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 21, 2016, 6:43:17 PM
+    Author     : morar
+*/
+
+.divHeader{ 
+    /* border-radius: 10px 10px 0 0; */
+    background-color: midnightblue;
+    border-collapse:collapse;
+    border:1px solid navy;
+    /* padding: 1px; */
+    overflow-x: auto;
+}
+
+.divSubHeader{
+    background-color: white;
+    border-collapse:collapse;
+    border-radius: 0 0 15px 15px;
+    border:cornflowerblue;
+    border-style: solid;
+    border-width: thin;
+}
+
+.columnSubHeader{
+    align-items: center;
+}
+
+.divFooter{
+    clear: both;
+    position:absolute;
+    bottom:0;
+    padding: 3px;
+    background: midnightblue;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    width: 99%;
+}
+
+.divTable{
+    padding: 3px;
+    background-color: gainsboro; 
+    border-collapse: collapse;
+    border-radius: 0 0 15px 15px;
+    border-width: thin;
+    border-color: lightgray;
+    border-style: solid;
+    overflow-x: auto; 
+    overflow-y: auto;
+    height: 370px; 
+    align-items: center
+}
+
+.divForm{
+    padding: 3px;
+    background-color: gainsboro; 
+    border-radius: 15px 15px 0 0;
+    border-color: cornflowerblue;
+    border-collapse: collapse;
+    border-width: thin;
+    overflow-x: auto; 
+    overflow-y: auto;
+}
+
+.divErrorMsg{
+    /* clear: both; */
+    border-radius: 15px 15px 15px 15px;
+    background-color: brown;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.lblError{
+    color: yellow;
+    /* font-weight: bold; */
+    display: block;
+    width: 99%;
+}
+
+.menuBtn{
+    background-color: midnightblue;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+    border: solid cornflowerblue;
+    height: 25px;    
+}
+
+.cmdBtn{
+    background-color: midnightblue;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+    border: none;
+    /* height: 25px; */
+}
+
