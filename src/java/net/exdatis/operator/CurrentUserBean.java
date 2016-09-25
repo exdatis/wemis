@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import net.exdatis.config.ReadDbHost;
 import net.exdatis.wdb.Wdb;
 
 /**
@@ -35,7 +36,7 @@ public class CurrentUserBean {
     
     private String userName;
     private String userPassword;
-    private Map<String, Object> hosts = new LinkedHashMap<>();
+    private Map<String, Object> hosts =  ReadDbHost.getDbHostMap();
     private String currentMessage;
     
     /**
@@ -44,9 +45,7 @@ public class CurrentUserBean {
     private String dbHost;
 
     public CurrentUserBean() {
-        hosts.put("localhost", "Localhost");
-        hosts.put("exdatis", "Server");
-        hosts.put("localhost", "Localhost replication");
+ 
     }
 
     public CurrentUserBean(String userName, String userPassword) {
@@ -122,7 +121,7 @@ public class CurrentUserBean {
             String msg = "Uspešna prijava na sistem.";
             this.setCurrentMessage(msg);
         }else{
-            String errorMsg = "Neuspešna prijava na sistem. Pokušajte ponovo.";
+            String errorMsg = "Neuspešna prijava na sistem. Pokušajte ponovo. ";
             this.setCurrentMessage(errorMsg);
         }
         

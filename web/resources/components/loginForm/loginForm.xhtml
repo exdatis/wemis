@@ -14,7 +14,6 @@
         <composite:attribute name="btnSubmitLabel"></composite:attribute>
         <composite:attribute name="hostLabel"></composite:attribute>
         <composite:attribute name="hostValue"></composite:attribute>
-        <composite:attribute name="hostVar"></composite:attribute>
         <composite:attribute name="hostValues"></composite:attribute>
         <composite:attribute
             name="btnSubmit"
@@ -44,7 +43,8 @@
                 
                 <h:outputLabel value="#{cc.attrs.hostLabel}"></h:outputLabel>
                 <h:selectOneMenu value="#{cc.attrs.hostValue}" style="width: 150px">
-                    <f:selectItems value="#{cc.attrs.hostValues}"></f:selectItems>
+                    <f:selectItems value="#{cc.attrs.hostValues}">
+                    </f:selectItems>
                 </h:selectOneMenu>
 
                 <h:commandButton
