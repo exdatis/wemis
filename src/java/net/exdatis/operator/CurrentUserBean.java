@@ -18,7 +18,7 @@
 package net.exdatis.operator;
 
 import java.sql.Connection;
-import java.util.LinkedHashMap;
+import java.sql.SQLException;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,6 +33,10 @@ import net.exdatis.wdb.Wdb;
 @ManagedBean(name = "currentUserBean", eager = true)
 @SessionScoped
 public class CurrentUserBean {
+    
+    private static String DB_USER;
+    private static String DB_PWD;
+    private static String DB_HOST;
     
     private String userName;
     private String userPassword;
@@ -104,7 +108,7 @@ public class CurrentUserBean {
     
     
     
-    public void login(){
+    public void login() throws SQLException{
         this.setCurrentMessage(null);
         Connection connection = null;
         
@@ -118,14 +122,37 @@ public class CurrentUserBean {
         
         // ako je konekcija ok
         if(connection != null){
+            connection.close();
             String msg = "Uspešna prijava na sistem.";
             this.setCurrentMessage(msg);
+            this.setStaticVar();
         }else{
             String errorMsg = "Neuspešna prijava na sistem. Pokušajte ponovo. ";
             this.setCurrentMessage(errorMsg);
         }
         
     }
+    
+    private void setStaticVar(){
+        DB_USER = this.getUserName();
+        DB_PWD = this.getUserPassword();
+        DB_HOST = this.getDbHost();
+
+    }
+
+    public static String getDB_USER() {
+        return DB_USER;
+    }
+
+    public static String getDB_PWD() {
+        return DB_PWD;
+    }
+
+    public static String getDB_HOST() {
+        return DB_HOST;
+    }
+    
+    
     
     
 }

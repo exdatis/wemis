@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:tp="http://java.sun.com/jsf/composite/components/personForm" >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-color: gainsboro;">
+        <ui:composition template="/templates/common.xhtml">
+            <ui:define name="contents">
+                <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>                
+                <div align="center" class="divForm">
+                    <!-- error messages -->
+                    <div align="center" class="divErrorMsg">
+                        <h:form>
+                            <h:outputText class="lblError"  value="#{personBean.errorMessage}"></h:outputText>
+                        </h:form>                   
+                    </div>
+
+                    <tp:personForm
+                        codeLabel="Šifra"
+                        codeValue="#{personBean.personCode}"
+                        nameLabel="Prezime i ime *"
+                        nameValue="#{personBean.personName}"
+                        lboLabel="LBO"
+                        lboValue="#{personBean.personLBO}"
+                        jmbgLabel="JMBG *"
+                        jmbgValue="#{personBean.personJMBG}"
+                        healthCardLabel="Zdravstvena"
+                        healthCardValue="#{personBean.personHealthCard}"
+                        locationLabel="Ispostava *"
+                        locationValue="#{personBean.personSubstation}"
+                        locationValues="#{personBean.locations}"
+                        btnResetLabel="Novi zapis"
+                        btnReset="#{personBean.resetValues()}"
+                        btnSubmitLabel="Sačuvaj zapis"
+                        btnSubmit="#{personBean.addPerson()}"
+                    >
+                    </tp:personForm>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
