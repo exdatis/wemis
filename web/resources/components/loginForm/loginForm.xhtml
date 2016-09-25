@@ -37,13 +37,13 @@
                 </h:inputText>
                 
                 <h:outputLabel value="#{cc.attrs.pwdLabel}"></h:outputLabel>
-                <h:inputText id="fieldName" value="#{cc.attrs.pwdValue}" size="35" label="Lozinka: ">
+                <h:inputSecret id="fieldPwd" value="#{cc.attrs.pwdValue}" size="35" label="Lozinka: ">
                     <f:validateLength minimum="1" maximum="35" ></f:validateLength>
-                    <h:message for="fieldName"></h:message>
-                </h:inputText> 
+                    <h:message for="fieldPwd"></h:message>
+                </h:inputSecret>
                 
                 <h:outputLabel value="#{cc.attrs.hostLabel}"></h:outputLabel>
-                <h:selectOneMenu value="#{cc.attrs.hostValue}" style="width: 50">
+                <h:selectOneMenu value="#{cc.attrs.hostValue}" style="width: 150px">
                     <f:selectItems value="#{cc.attrs.hostValues}"></f:selectItems>
                 </h:selectOneMenu>
 
