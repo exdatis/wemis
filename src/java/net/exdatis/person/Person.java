@@ -49,6 +49,8 @@ public class Person {
     private String personJMBG;
     private String personHealthCard;
     private int personSubstation;
+    private String locationZip;
+    private String locationName;
     private boolean canEdit;
 
     public Person() {
@@ -117,6 +119,24 @@ public class Person {
         this.personSubstation = personSubstation;
     }
 
+    public String getLocationZip() {
+        return locationZip;
+    }
+
+    public void setLocationZip(String locationZip) {
+        this.locationZip = locationZip;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    
+    
     public boolean isCanEdit() {
         return canEdit;
     }
@@ -128,7 +148,7 @@ public class Person {
     public static ArrayList<Person> getPersonByJMBG(Connection connection, String jmbg){
         ArrayList<Person> p = new ArrayList<>();
         
-        String sql = "Select * From person Where p_jmbg = ?";
+        String sql = "Select * From person_v Where p_jmbg = ?";
         
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             pst.setString(1, jmbg);
@@ -142,6 +162,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -155,7 +177,7 @@ public class Person {
     public static ArrayList<Person> getPersonByJMBGpart(Connection connection, String jmbg) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + jmbg + "%";
-        String sql = "Select * From person Where lower(p_jmbg) like lower(?) Order by p_name Limit 100";
+        String sql = "Select * From person_v Where lower(p_jmbg) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -169,6 +191,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));                
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -181,7 +205,7 @@ public class Person {
     public static ArrayList<Person> getPersonByLBO(Connection connection, String lbo){
         ArrayList<Person> p = new ArrayList<>();
         
-        String sql = "Select * From person Where p_lbo = ?";
+        String sql = "Select * From person_v Where p_lbo = ?";
         
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             pst.setString(1, lbo);
@@ -195,6 +219,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));                
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -208,7 +234,7 @@ public class Person {
     public static ArrayList<Person> getPersonByLBOGpart(Connection connection, String lbo) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + lbo + "%";
-        String sql = "Select * From person Where lower(p_lbo) like lower(?) Order by p_name Limit 100";
+        String sql = "Select * From person_v Where lower(p_lbo) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -222,6 +248,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));                
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -235,7 +263,7 @@ public class Person {
     public static ArrayList<Person> getPersonByHealthCard(Connection connection, String card){
         ArrayList<Person> p = new ArrayList<>();
         
-        String sql = "Select * From person Where p_health_card = ?";
+        String sql = "Select * From person_v Where p_health_card = ?";
         
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             pst.setString(1, card);
@@ -249,6 +277,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));                
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -262,7 +292,7 @@ public class Person {
     public static ArrayList<Person> getPersonByName(Connection connection, String name) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + name + "%";
-        String sql = "Select * From person Where lower(p_name) like lower(?) Order by p_name Limit 100";
+        String sql = "Select * From person_v Where lower(p_name) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -276,6 +306,8 @@ public class Person {
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
                 currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));                
                 p.add(currPerson);
             }
         } catch (SQLException ex) {

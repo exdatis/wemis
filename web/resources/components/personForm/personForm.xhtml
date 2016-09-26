@@ -39,28 +39,28 @@
 
             <h:panelGrid columns="4" id="panelLoginForm" border="0" bgcolor="silver">
 
-                <h:outputLabel value="#{cc.attrs.codeLabel}"></h:outputLabel>                
+                <h:outputLabel value="#{cc.attrs.codeLabel}" class="formTitleCaption"></h:outputLabel>                
                 <h:inputText id="fieldCode" value="#{cc.attrs.codeValue}" size="20" >
                 </h:inputText>
 
-                <h:outputLabel value="#{cc.attrs.nameLabel}"></h:outputLabel>
+                <h:outputLabel value="#{cc.attrs.nameLabel}" class="formTitleCaption"></h:outputLabel>
                 <h:inputText id="fieldName" value="#{cc.attrs.nameValue}" size="45">
                 </h:inputText>
                 
-                <h:outputLabel value="#{cc.attrs.lboLabel}"></h:outputLabel>                
+                <h:outputLabel value="#{cc.attrs.lboLabel}" class="formTitleCaption"></h:outputLabel>                
                 <h:inputText id="fieldLBO" value="#{cc.attrs.lboValue}" size="30" >
                 </h:inputText>
 
-                <h:outputLabel value="#{cc.attrs.jmbgLabel}"></h:outputLabel>
+                <h:outputLabel value="#{cc.attrs.jmbgLabel}" class="formTitleCaption"></h:outputLabel>
                 <h:inputText id="fieldJMBG" value="#{cc.attrs.jmbgValue}" size="30">
                 </h:inputText>
 
-                <h:outputLabel value="#{cc.attrs.healthCardLabel}"></h:outputLabel>                
+                <h:outputLabel value="#{cc.attrs.healthCardLabel}" class="formTitleCaption" ></h:outputLabel>                
                 <h:inputText id="fieldHealthCard" value="#{cc.attrs.healthCardValue}" size="30" >
                 </h:inputText>
 
                 
-                <h:outputLabel value="#{cc.attrs.locationLabel}"></h:outputLabel>
+                <h:outputLabel value="#{cc.attrs.locationLabel}" class="formTitleCaption"></h:outputLabel>
                 <h:selectOneMenu value="#{cc.attrs.locationValue}" style="width: 190px">
                     <f:selectItems value="#{cc.attrs.locationValues}">
                     </f:selectItems>

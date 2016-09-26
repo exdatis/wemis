@@ -25,7 +25,7 @@
                     <h:form>
                         <div align="center" class="divForm" >
                             <h:panelGrid columns="3" border="0" bgcolor="silver">
-                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 255px">
+                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 235px">
                                     <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
                                 </h:selectOneMenu>  
                                 
@@ -135,11 +135,7 @@
                                     <f:selectItems value="#{personBean.locations}">
                                     </f:selectItems>
                                 </h:selectOneMenu>
-                                <h:selectOneMenu value="#{person.personSubstation}" style="width: 110px" 
-                                                 rendered="#{not person.canEdit}" onchange="alert('Ako želite izmene kliknite taster izmeni!')">
-                                    <f:selectItems value="#{personBean.locations}">
-                                    </f:selectItems>
-                                </h:selectOneMenu>
+                                <h:outputText value="#{person.locationName}" rendered="#{not person.canEdit}"></h:outputText>
                             </h:column>
 
                             <h:column>

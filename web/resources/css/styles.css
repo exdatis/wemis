@@ -48,7 +48,7 @@ and open the template in the editor.
     border-style: solid;
     overflow-x: auto; 
     overflow-y: auto;
-    height: 170px; 
+    height: 150px; 
     align-items: center
 }
 
@@ -94,5 +94,10 @@ and open the template in the editor.
     width: 120px;
     border: none;
     /* height: 25px; */
+}
+
+.formTitleCaption{
+    color: navy;
+    font-size: small;
 }
 

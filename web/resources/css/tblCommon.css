@@ -24,28 +24,28 @@ and open the template in the editor.
 
 .TblOddRow{
     text-align:left;
-    font-size: medium;
+    font-size: small; /* medium je bio */
     background:none repeat scroll 0 0 #FFFFFF;	
 }
 
 .TblEvenRow{
     text-align:left;
-    font-size: medium;
+    font-size: small; /* medium je bio */
     background:none repeat scroll 0 0 #D3D3D3;
 }
 
 .TblColLeft{
     text-align:left;
-    font-size: medium;
+    font-size: small; /* medium je bio */
 }
 
 .TblColRight{
     text-align:right;
-    font-size: medium;
+    font-size: small; /* medium je bio */
 }
 
 .TblColCenter{
     text-align:right;
-    font-size: medium;    
+    font-size: small;  /* medium je bio */  
 }
 

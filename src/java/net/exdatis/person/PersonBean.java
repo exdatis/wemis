@@ -46,7 +46,9 @@ public class PersonBean {
     private String personJMBG;
     private String personHealthCard;
     private int personSubstation;
-
+    private String locationZip;
+    private String locationName;
+    
     private String searchText;
     private Map<String, Object> argumentTypes = Person.argMap();
     private Person.ArgType currentSearchArgument;
@@ -123,6 +125,24 @@ public class PersonBean {
         this.personSubstation = personSubstation;
     }
 
+    public String getLocationZip() {
+        return locationZip;
+    }
+
+    public void setLocationZip(String locationZip) {
+        this.locationZip = locationZip;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    
+    
     public String getSearchText() {
         return searchText;
     }
