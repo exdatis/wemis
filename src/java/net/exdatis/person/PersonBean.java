@@ -20,9 +20,6 @@ package net.exdatis.person;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.location.Location;
@@ -33,10 +30,10 @@ import net.exdatis.wdb.Wdb;
  *
  * @author morar
  */
-
 @ManagedBean(name = "personBean", eager = true)
 @ViewScoped
 public class PersonBean {
+
     // za db
     private final String currentUser = CurrentUserBean.getDB_USER();
     private final String currentPwd = CurrentUserBean.getDB_PWD();
@@ -49,20 +46,26 @@ public class PersonBean {
     private String personJMBG;
     private String personHealthCard;
     private int personSubstation;
-    
+
+    private String searchText;
+    private Map<String, Object> argumentTypes = Person.argMap();
+    private Person.ArgType currentSearchArgument;
+
     private String errorMessage;
-    
+
     private ArrayList<Person> persons;
     private Person selectedPerson;
+
+    private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);
+    ;
     
-    private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);;
-    
-    private Map<String, Object> locations = Location.getLocationsMap(connection);;
+    private Map<String, Object> locations = Location.getLocationsMap(connection);
+
+    ;
 
     public PersonBean() throws ClassNotFoundException {
 
     }
-    
 
     public int getPersonId() {
         return personId;
@@ -120,6 +123,22 @@ public class PersonBean {
         this.personSubstation = personSubstation;
     }
 
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
     public String getErrorMessage() {
         return errorMessage;
     }
@@ -128,7 +147,22 @@ public class PersonBean {
         this.errorMessage = errorMessage;
     }
 
-    
+    public Map<String, Object> getArgumentTypes() {
+        return argumentTypes;
+    }
+
+    public void setArgumentTypes(Map<String, Object> argumentTypes) {
+        this.argumentTypes = argumentTypes;
+    }
+
+    public Person.ArgType getCurrentSearchArgument() {
+        return currentSearchArgument;
+    }
+
+    public void setCurrentSearchArgument(Person.ArgType currentSearchArgument) {
+        this.currentSearchArgument = currentSearchArgument;
+    }
+
     public Person getSelectedPerson() {
         return selectedPerson;
     }
@@ -152,21 +186,48 @@ public class PersonBean {
     public void setLocations(Map<String, Object> locations) {
         this.locations = locations;
     }
-    
-    public void resetValues(){
+
+    public void resetValues() {
         this.setErrorMessage(null);
         this.setPersonCode(null);
         this.setPersonName(null);
         this.setPersonLBO(null);
         this.setPersonJMBG(null);
         this.setPersonHealthCard(null);
-        this.setPersonSubstation(689); // pancevo
-        
+        this.setPersonSubstation(0); // pancevo 689
+
     }
-    
-    public String addPerson(){
+
+    public String addPerson() {
         return null;
-        
+
     }
-    
+
+    public String searchPerson() {
+        switch (this.currentSearchArgument) {
+            case FULL_JMBG:
+                this.setPersons(Person.getPersonByJMBG(this.connection, this.searchText));
+                break;
+            case PARTIAL_JMBG:
+                this.setPersons(Person.getPersonByJMBGpart(this.connection, this.searchText));
+                break;
+            case FULL_LBO:
+                this.setPersons(Person.getPersonByLBO(this.connection, this.searchText));
+                break;
+            case PARTIAL_LBO:
+                this.setPersons(Person.getPersonByLBOGpart(this.connection, this.searchText));
+                break;
+            case HEALTH_CARD:
+                this.setPersons(Person.getPersonByHealthCard(this.connection, this.searchText));
+                break;
+            case PARTIAL_NAME:
+                this.setPersons(Person.getPersonByName(this.connection, this.searchText));
+                break;
+            default:
+                this.setPersons(Person.getPersonByJMBG(this.connection, this.searchText));
+                break;
+        }
+        return null;
+    }
+
 }

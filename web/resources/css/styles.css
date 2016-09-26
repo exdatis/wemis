@@ -42,20 +42,20 @@ and open the template in the editor.
     padding: 3px;
     background-color: gainsboro; 
     border-collapse: collapse;
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px 15px 15px 15px;
     border-width: thin;
     border-color: lightgray;
     border-style: solid;
     overflow-x: auto; 
     overflow-y: auto;
-    height: 370px; 
+    height: 170px; 
     align-items: center
 }
 
 .divForm{
     padding: 3px;
     background-color: gainsboro; 
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 0 15px;
     border-color: cornflowerblue;
     border-collapse: collapse;
     border-width: thin;

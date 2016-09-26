@@ -22,6 +22,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +32,15 @@ import java.util.logging.Logger;
  * @author morar
  */
 public class Person {
+    
+    public enum ArgType{
+        FULL_JMBG,
+        PARTIAL_JMBG,
+        FULL_LBO,
+        PARTIAL_LBO,
+        HEALTH_CARD,
+        PARTIAL_NAME
+    }
     
     private int personId;
     private String personCode;
@@ -144,7 +155,7 @@ public class Person {
     public static ArrayList<Person> getPersonByJMBGpart(Connection connection, String jmbg) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + jmbg + "%";
-        String sql = "Select * From person Where lower(p_jmbg) like lower(?) Order by l_name";
+        String sql = "Select * From person Where lower(p_jmbg) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -197,7 +208,7 @@ public class Person {
     public static ArrayList<Person> getPersonByLBOGpart(Connection connection, String lbo) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + lbo + "%";
-        String sql = "Select * From person Where lower(p_lbo) like lower(?) Order by l_name";
+        String sql = "Select * From person Where lower(p_lbo) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -251,7 +262,7 @@ public class Person {
     public static ArrayList<Person> getPersonByName(Connection connection, String name) {
         ArrayList<Person> p = new ArrayList<>();
         String arg = "%" + name + "%";
-        String sql = "Select * From person Where lower(p_name) like lower(?) Order by l_name";
+        String sql = "Select * From person Where lower(p_name) like lower(?) Order by p_name Limit 100";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, arg);
@@ -268,10 +279,24 @@ public class Person {
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage() + "Error>>>>>>>>>>>");
             return null;
         }
         return p;
 
     }   
+    
+    public static Map<String, Object> argMap(){
+        Map<String, Object> m = new LinkedHashMap<>();
+        // pretraga po kompletnom jmbg broju
+        m.put("Kompletan JMBG", ArgType.FULL_JMBG);
+        m.put("Delimičan JMBG", ArgType.PARTIAL_JMBG);
+        m.put("Kompletan LBO", ArgType.FULL_LBO);
+        m.put("Delimičan LBO", ArgType.PARTIAL_LBO);
+        m.put("Zdravstvena", ArgType.HEALTH_CARD);
+        m.put("Prezime/ime", ArgType.PARTIAL_NAME);
+        
+        return m;
+        
+    }
 }

@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:tp="http://java.sun.com/jsf/composite/components/personForm" >
+      xmlns:tp="http://java.sun.com/jsf/composite/components/personForm" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -20,7 +22,24 @@
 
                         </div>
                     </h:form> 
-                    
+                    <h:form>
+                        <div align="center" class="divForm" >
+                            <h:panelGrid columns="3" border="0" bgcolor="silver">
+                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 255px">
+                                    <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
+                                </h:selectOneMenu>  
+                                
+                                <h:inputText value="#{personBean.searchText}" size="50" autocomplete="off"></h:inputText>
+                                <h:commandButton action="#{personBean.searchPerson()}" 
+                                                 value="Pronadji po tipu pretrage" 
+                                                 title="Pronadji po zadatom argumentu(Alt+Shift+P)" 
+                                                 accesskey="p"
+                                                 style="cursor: pointer">
+                                    
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                    </h:form>
                     <tp:personForm
                         codeLabel="Šifra"
                         codeValue="#{personBean.personCode}"
@@ -42,6 +61,130 @@
                         >
                     </tp:personForm>
                 </div>
+                
+                <div align="center" class="divTable">
+                    <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
+                    <p:messages autoUpdate="true"></p:messages>
+                    <h:form>
+                        <h:dataTable value="#{personBean.persons}" var="person"
+                                     cellpadding="5"
+                                     styleClass="Tbl"
+                                     headerClass="TblHeader"
+                                     rowClasses="TblOddRow, TblEvenRowm"
+                                     columnClasses=
+                                     "TblColLeft,
+                                      TblColLeft,
+                                      TblColLeft, 
+                                      TblColLeft,
+                                      TblColLeft,
+                                      TblColLeft, 
+                                      TblColLeft,
+                                      TblColRight, 
+                                      TblColLeft,
+                                      TblColLeft"
+                                     >
+                            <h:column>
+                                <f:facet name="header">ID</f:facet>
+                                <h:outputText value="#{person.personId}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Šifra</f:facet>
+                                <h:inputText id="fieldOldSign" value="#{person.personCode}" size="5" rendered="#{measure.canEdit}" label="Šifra">
+                                    <f:validateLength minimum="1" maximum="10" ></f:validateLength>
+                                    <h:message for="fieldOldSign"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personCode}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Prezime i ime</f:facet>
+                                <h:inputText id="fieldOldName" value="#{person.personName}" size="45" rendered="#{person.canEdit}" label="Prezime i ime">
+                                    <f:validateLength minimum="1" maximum="70" ></f:validateLength>
+                                    <h:message for="fieldOldName"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personName}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">LBO</f:facet>
+                                <h:inputText id="fieldOldLBO" value="#{person.personLBO}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personLBO}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">JMBG</f:facet>
+                                <h:inputText id="fieldOldJMBG" value="#{person.personJMBG}" size="20" rendered="#{person.canEdit}" label="JMBG">
+                                    <f:validateLength minimum="1" maximum="30" ></f:validateLength>
+                                    <h:message for="fieldOldJMBG"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personJMBG}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">Zdravstvena</f:facet>
+                                <h:inputText id="fieldOldHC" value="#{person.personHealthCard}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personHealthCard}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">Ispostava</f:facet>
+                                <h:selectOneMenu value="#{person.personSubstation}" style="width: 110px" rendered="#{person.canEdit}">
+                                    <f:selectItems value="#{personBean.locations}">
+                                    </f:selectItems>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu value="#{person.personSubstation}" style="width: 110px" 
+                                                 rendered="#{not person.canEdit}" onchange="alert('Ako želite izmene kliknite taster izmeni!')">
+                                    <f:selectItems value="#{personBean.locations}">
+                                    </f:selectItems>
+                                </h:selectOneMenu>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton class="cmdBtn"
+                                                 action="#{measureBean.editMeasure(measure)}"
+                                                 rendered="#{not measure.canEdit}"
+                                                 value="Izmeni"
+                                                 title="Izmeni selektovani red">
+                                </h:commandButton>
+                            </h:column>
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton onclick="if (! confirm('Sigurno brišete zapis?')) return false"
+                                                 class="cmdBtn"
+                                                 action="#{measureBean.deleteMeasure(measure)}"
+                                                 rendered="#{not measure.canEdit}"
+                                                 value="Obriši"
+                                                 title="Trajno brisanje podataka">
+                                </h:commandButton>                                <br/>                               
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton class="cmdBtn"
+                                                 action="#{measureBean.editMeasure(measure)}"
+                                                 rendered="#{not measure.canEdit}"
+                                                 value="Primi pacijenta"
+                                                 title="Postavi u čekaonicu">
+                                </h:commandButton>
+                            </h:column>
+
+                        </h:dataTable>
+                        <br/>
+                        <h:commandButton class="cmdBtn" 
+                                         value="Sačuvaj izmene" 
+                                         action="#{measureBean.updateMeasure()}"
+                                         accesskey="i"
+                                         title="Snimi u bazu podataka(Alt+Shift+I)">
+                        </h:commandButton>
+                    </h:form>
+
+                </div>
+
+                
             </ui:define>
         </ui:composition>
     </h:body>
