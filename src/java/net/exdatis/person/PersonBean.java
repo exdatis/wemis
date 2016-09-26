@@ -20,6 +20,9 @@ package net.exdatis.person;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.location.Location;
@@ -52,13 +55,14 @@ public class PersonBean {
     private ArrayList<Person> persons;
     private Person selectedPerson;
     
-    private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);
+    private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);;
     
-    private Map<String, Object> locations = Location.getLocationsMap(connection);
+    private Map<String, Object> locations = Location.getLocationsMap(connection);;
 
     public PersonBean() throws ClassNotFoundException {
 
     }
+    
 
     public int getPersonId() {
         return personId;
@@ -160,7 +164,8 @@ public class PersonBean {
         
     }
     
-    public void addPerson(){
+    public String addPerson(){
+        return null;
         
     }
     

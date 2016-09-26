@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Wemis software</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+            <div class ="divHeader">
+                <form>
+                    <h:commandButton value="Početna" action="/index.xhtml" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Ambulanta" class="menuBtn" action="ambulance/ambulance_wait.xhtml">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Specijalistički" action="#" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Stacionar" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Laboratorija" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Apoteka" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="Finansije" class="menuBtn">
+
+                    </h:commandButton>
+
+                    <h:commandButton value="System admin" class="menuBtn">
+
+                    </h:commandButton>
+                </form>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

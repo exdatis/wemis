@@ -136,7 +136,7 @@ public class CurrentUserBean {
     
     
     
-    public void login() throws SQLException{
+    public String login() throws SQLException{
         this.setCurrentMessage(null);
         Connection connection = null;
         
@@ -146,6 +146,7 @@ public class CurrentUserBean {
             this.setCurrentMessage(ex.getMessage());
         }catch(Exception e){
             this.setCurrentMessage(e.getMessage());
+            return null;
         }
         
         // ako je konekcija ok
@@ -157,7 +158,10 @@ public class CurrentUserBean {
         }else{
             String errorMsg = "Neuspešna prijava na sistem. Pokušajte ponovo. ";
             this.setCurrentMessage(errorMsg);
+            return null;
         }
+        
+        return "main_menu";
         
     }
     

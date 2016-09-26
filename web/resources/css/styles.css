@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : morar
 */
 
-.divHeader{ 
+.divHeaderBtns{ 
     /* border-radius: 10px 10px 0 0; */
     background-color: midnightblue;
     border-collapse:collapse;
@@ -20,7 +20,7 @@ and open the template in the editor.
 .divSubHeader{
     background-color: white;
     border-collapse:collapse;
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px 15px 15px 15px;
     border:cornflowerblue;
     border-style: solid;
     border-width: thin;
@@ -55,7 +55,7 @@ and open the template in the editor.
 .divForm{
     padding: 3px;
     background-color: gainsboro; 
-    border-radius: 15px 15px 0 0;
+    border-radius: 0 0 15px 15px;
     border-color: cornflowerblue;
     border-collapse: collapse;
     border-width: thin;
