@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-color: gainsboro;">
+        <ui:composition template="templates/ambulanceMenu/common.xhtml">
+            <ui:define name="contents">
+                <h:form>
+                    <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>                
+                    <div align="center" class="divForm">
+                        <div align="justify">
+                            <font style="color: navy"><h3>Izbor poslova</h3></font>
+                            <ul>
+                                <li>
+
+                                    <p:commandLink style="color: navy;" action="ambulance/ambulance_wait.xhtml" value="Prijava pacijenata"></p:commandLink>
+
+                                    <div style="color: white; font-size: small; background-color: midnightblue;">
+                                        <p>&pnbs; Prijavljivanje pacijenata(čekanje) sa izborom ordinacije(čekaonice)</p>
+                                    </div>
+                                </li>
+                                <li>
+
+                                    <p:commandLink style="color: navy;" action="#" value="Specijalistički"></p:commandLink>
+
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Prijavljivanje pacijenata(čekanje-čekaonica). Prijem pacijenata u ordinaciju, izveštaji i pregledi.</p>
+                                    </div>
+                                </li>
+                                <li>
+
+                                    <p:commandLink style="color: navy;" action="#" value="Stacionar"></p:commandLink>
+
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Prijavljivanje pacijenata(prijemna služba). Prijem pacijenata na odeljenje, izveštaji i pregledi.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p:commandLink style="color: navy;" action="#" value="Laboratorija"></p:commandLink>
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Prijem pacijenata u laboratoriju, izveštaji i pregledi.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p:commandLink style="color: navy;" action="#" value="Apoteka"></p:commandLink>
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Centralna apoteka ustanove, odeljenske apoteke-skladišta lekova, izveštaji i pregledi.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p:commandLink style="color: navy;" action="#" value="Finansije"></p:commandLink>
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Javne nabavke, likvidatura, izveštaji i pregledi.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p:commandLink style="color: navy;" action="#" value="System admin"></p:commandLink>
+                                    <div style="color: white; font-size: small;background-color: midnightblue">
+                                        <p>&pnbs; Administracija sistema, sistemske izmene, update i upgrade sistema, arhiviranje i replikacije.</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

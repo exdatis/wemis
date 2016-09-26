@@ -11,19 +11,19 @@
             <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
             <div class ="divHeader">
                 <h:form>
-                    <h:commandButton value="Početna" action="/index.xhtml" class="menuBtn">
+                    <h:commandButton value="Menu" action="/main_menu.xhtml" class="menuBtn" title="Osnovni menu">
 
                     </h:commandButton>
 
-                    <h:commandButton value="Ambulanta" class="menuBtn" action="ambulance_menu.xhtml">
+                    <h:commandButton value="Prijava" class="menuBtn" action="/ambulance/ambulance_wait.xhtml" title="Prijavljivanje pacijenata na čekanje">
 
                     </h:commandButton>
 
-                    <h:commandButton value="Specijalistički" action="#" class="menuBtn">
+                    <h:commandButton value="Prijem-ordinacija" action="#" class="menuBtn">
 
                     </h:commandButton>
 
-                    <h:commandButton value="Stacionar" class="menuBtn">
+                    <h:commandButton value="Prijem-ambulanta" class="menuBtn" title="Interventna ambulanta">
 
                     </h:commandButton>
 
@@ -31,17 +31,6 @@
 
                     </h:commandButton>
 
-                    <h:commandButton value="Apoteka" class="menuBtn">
-
-                    </h:commandButton>
-
-                    <h:commandButton value="Finansije" class="menuBtn">
-
-                    </h:commandButton>
-
-                    <h:commandButton value="System admin" class="menuBtn">
-
-                    </h:commandButton>
                 </h:form>
             </div>
         </ui:composition>
