@@ -19,6 +19,7 @@ package personWait;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -52,6 +53,8 @@ public class AmbulanceWait {
     private String personLBO;
     private String personJMBG;
     private String personHealthCard;
+    private String priorityName;
+    private String statusName;
 
     public AmbulanceWait() {
     }
@@ -165,13 +168,21 @@ public class AmbulanceWait {
     public void setPersonHealthCard(String personHealthCard) {
         this.personHealthCard = personHealthCard;
     }
-    
-    public static Map<String, Object> getPriorityMap(){
-        Map<String, Object> m = new LinkedHashMap<>();
-        m.put("Normalan", 3);
-        m.put("Deca, trudnice, stara lica", 2);
-        m.put("Urgentan", 1);
-        return m;              
+
+    public String getPriorityName() {
+        return priorityName;
+    }
+
+    public void setPriorityName(String priorityName) {
+        this.priorityName = priorityName;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
     
     public static ArrayList<AmbulanceWait> getTodayAw(Connection connection){

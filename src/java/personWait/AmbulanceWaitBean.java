@@ -22,11 +22,14 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.waitingRoom.AmbulanceRoom;
 import net.exdatis.wdb.Wdb;
+import patientStatus.PatientPriority;
+import patientStatus.PatientStatus;
 
 /**
  *
@@ -49,28 +52,213 @@ public class AmbulanceWaitBean implements Serializable {
     private int awPerson;
     private int awStatus;
     private String dbUser;
+    
     private String roomCode;
     private String roomName;
     private String personName;
     private String personJMBG;
     private String personLBO;
     private String personHealthCard;
+    private String priorityName;
+    private String statusName;
+    
+    private AmbulanceWait selectedAw;
+    
+    private static int newPerson;
     
     private final Connection connection = Wdb.getDbConnection(this.currentUser, this.currentPwd, this.currentHost);
     /**
      * Lista prioriteta za comboBox;
      */
-    private Map<String, Object> priorities = AmbulanceWait.getPriorityMap();
+    private Map<String, Object> priorities = PatientPriority.getPriorityMap(this.connection);
     
     /**
      * Lista ambulatnih cekaonica za comboBox.
      */
     private Map<String, Object> rooms = AmbulanceRoom.roomMap(connection);
     
+    private Map<String, Object> status = PatientStatus.getStatusMap(this.connection);
+    
     /**
      * Lista kreiranih cekanja(ambulanta). Var ce biti wait,
      */
     private ArrayList<AmbulanceWait> standby;
+    
+    @PostConstruct
+    void init(){
+        this.standby = new ArrayList<>();
+    }
+
+    public AmbulanceWaitBean() {
+    }
+
+    public int getAwId() {
+        return awId;
+    }
+
+    public void setAwId(int awId) {
+        this.awId = awId;
+    }
+
+    public Timestamp getAwTime() {
+        return awTime;
+    }
+
+    public void setAwTime(Timestamp awTime) {
+        this.awTime = awTime;
+    }
+
+    public int getAwPriority() {
+        return awPriority;
+    }
+
+    public void setAwPriority(int awPriority) {
+        this.awPriority = awPriority;
+    }
+
+    public int getAwRoom() {
+        return awRoom;
+    }
+
+    public void setAwRoom(int awRoom) {
+        this.awRoom = awRoom;
+    }
+
+    public int getAwPerson() {
+        return awPerson;
+    }
+
+    public void setAwPerson(int awPerson) {
+        this.awPerson = awPerson;
+    }
+
+    public int getAwStatus() {
+        return awStatus;
+    }
+
+    public void setAwStatus(int awStatus) {
+        this.awStatus = awStatus;
+    }
+
+    public String getDbUser() {
+        return dbUser;
+    }
+
+    public void setDbUser(String dbUser) {
+        this.dbUser = dbUser;
+    }
+
+    public String getRoomCode() {
+        return roomCode;
+    }
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonJMBG() {
+        return personJMBG;
+    }
+
+    public void setPersonJMBG(String personJMBG) {
+        this.personJMBG = personJMBG;
+    }
+
+    public String getPersonLBO() {
+        return personLBO;
+    }
+
+    public void setPersonLBO(String personLBO) {
+        this.personLBO = personLBO;
+    }
+
+    public String getPersonHealthCard() {
+        return personHealthCard;
+    }
+
+    public void setPersonHealthCard(String personHealthCard) {
+        this.personHealthCard = personHealthCard;
+    }
+
+    public AmbulanceWait getSelectedAw() {
+        return selectedAw;
+    }
+
+    public void setSelectedAw(AmbulanceWait selectedAw) {
+        this.selectedAw = selectedAw;
+    }
+
+    public static int getNewPerson() {
+        return newPerson;
+    }
+
+    public static void setNewPerson(int newPerson) {
+        AmbulanceWaitBean.newPerson = newPerson;
+    }
+
+    public Map<String, Object> getPriorities() {
+        return priorities;
+    }
+
+    public void setPriorities(Map<String, Object> priorities) {
+        this.priorities = priorities;
+    }
+
+    public Map<String, Object> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Map<String, Object> rooms) {
+        this.rooms = rooms;
+    }
+
+    public String getPriorityName() {
+        return priorityName;
+    }
+
+    public void setPriorityName(String priorityName) {
+        this.priorityName = priorityName;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public Map<String, Object> getStatus() {
+        return status;
+    }
+
+    public void setStatus(Map<String, Object> status) {
+        this.status = status;
+    }
+    
+    public ArrayList<AmbulanceWait> getStandby() {
+        return standby;
+    }
+
+    public void setStandby(ArrayList<AmbulanceWait> standby) {
+        this.standby = standby;
+    }
     
     
     
