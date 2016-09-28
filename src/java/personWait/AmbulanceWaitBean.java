@@ -18,6 +18,7 @@
 package personWait;
 
 import java.sql.Timestamp;
+import java.util.Map;
 
 /**
  *
@@ -31,5 +32,17 @@ public class AmbulanceWaitBean {
     private int waitRoom;
     private int waitPersonId;
     private int waitStatus;
+    private String dbUser;
+    private String roomCode;
+    private String roomName;
+    private String personName;
+    private String personJMBG;
+    private String personLBO;
+    private String personHealthCard;
+    
+    private Map<String, Object> priorities;
+    
+    
+    
     
 }

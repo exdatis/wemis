@@ -17,6 +17,7 @@
  */
 package net.exdatis.wdb;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -27,23 +28,26 @@ public interface CRUDdata {
     
     /**
      * Sacuvaj novi zapis
+     * @param connection (db connection)
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String insertRec() throws SQLException;
+    public String insertRec(Connection connection) throws SQLException;
     
     /**
      * Sacuvaj izmene na zapisu.
+     * @param connection (db connection)
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String updateRec() throws SQLException;
+    public String updateRec(Connection connection) throws SQLException;
     
     /**
      * Brisanje zapisa.
+     * @param connection (db connection)
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String deleteRec() throws SQLException;
+    public String deleteRec(Connection connection) throws SQLException;
     
 }

@@ -17,9 +17,12 @@
  */
 package net.exdatis.person;
 
+import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.location.Location;
@@ -32,7 +35,7 @@ import net.exdatis.wdb.Wdb;
  */
 @ManagedBean(name = "personBean", eager = true)
 @ViewScoped
-public class PersonBean {
+public class PersonBean implements Serializable{
 
     // za db
     private final String currentUser = CurrentUserBean.getDB_USER();
@@ -59,14 +62,17 @@ public class PersonBean {
     private Person selectedPerson;
 
     private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);
-    ;
-    
+      
     private Map<String, Object> locations = Location.getLocationsMap(connection);
 
-    ;
 
     public PersonBean() throws ClassNotFoundException {
 
+    }
+    
+    @PostConstruct
+    public void init(){
+        this.persons = new ArrayList<>();
     }
 
     public int getPersonId() {
@@ -218,9 +224,69 @@ public class PersonBean {
 
     }
 
-    public String addPerson() {
+    public String addPerson() throws SQLException {
+        this.setErrorMessage(null);
+        Person p = new Person();
+        p.setPersonCode(personCode);
+        p.setPersonName(personName);
+        p.setPersonLBO(personLBO);
+        p.setPersonJMBG(personJMBG);
+        p.setPersonHealthCard(personHealthCard);
+        p.setPersonSubstation(personSubstation);
+        String msg = p.insertRec(this.getConnection());
+        if(msg.equalsIgnoreCase("yes")){
+            Person added = Person.getPersonById(connection, p.getPersonId());
+            persons.add(added);
+            return null;
+        }
+        // else
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
         return null;
-
+    }
+    
+    public String deletePerson(Person p) throws SQLException{
+        this.setErrorMessage(null);
+        String msg = p.deleteRec(this.getConnection());
+        if(msg.equalsIgnoreCase("yes")){
+            persons.remove(p);
+            return null;
+        }
+        // else
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
+        return null;
+    }
+    
+    public String editPerson(Person p){
+        this.setSelectedPerson(p);
+        p.setCanEdit(true);
+        return null;
+    }
+    
+    public String updatePerson() throws SQLException{
+        // proveri greskom pritisnuto dugme
+        if(this.getSelectedPerson() == null){
+            String msg = "Error: Nema selektovanih slogova za izmenu.";
+            this.setErrorMessage(msg);
+            return null;
+        }
+        // resetuj poruku
+        this.setErrorMessage(null);
+        // update selektovanog sloga
+        String success = this.getSelectedPerson().updateRec(this.getConnection());
+        if(success.equalsIgnoreCase("yes")){
+            for(Person p : persons){
+                p.setCanEdit(false);
+            }
+            // eset selected Person
+            this.setSelectedPerson(null);
+            return null;
+        }
+        // else set errorMsg
+        success = "Error: " + success;
+        this.setErrorMessage(success);
+        return null;
     }
 
     public String searchPerson() {

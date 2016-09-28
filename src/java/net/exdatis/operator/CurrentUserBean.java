@@ -17,6 +17,7 @@
  */
 package net.exdatis.operator;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import net.exdatis.wdb.Wdb;
 
 @ManagedBean(name = "currentUserBean", eager = true)
 @SessionScoped
-public class CurrentUserBean {
+public class CurrentUserBean implements Serializable {
     
     private static String DB_USER;
     private static String DB_PWD;

@@ -17,6 +17,7 @@
  */
 package net.exdatis.person;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +27,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.exdatis.wdb.CRUDdata;
 
 /**
  *
  * @author morar
  */
-public class Person {
+public class Person implements CRUDdata{
     
     public enum ArgType{
         FULL_JMBG,
@@ -143,6 +145,68 @@ public class Person {
 
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+    
+    @Override
+    public String insertRec(Connection connection) throws SQLException {
+        String success = "no";
+        String sql = "{call person_add(?, ?, ?, ?, ?, ?, ?)}";
+        
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            cst.setString(1, this.getPersonCode());
+            cst.setString(2, this.getPersonName());
+            cst.setString(3, this.getPersonLBO());
+            cst.setString(4, this.getPersonJMBG());
+            cst.setString(5, this.getPersonHealthCard());
+            cst.setInt(6, this.getPersonSubstation());
+            cst.registerOutParameter(7, java.sql.Types.INTEGER);
+            boolean added = cst.execute();
+            this.setPersonId(cst.getInt(7));
+        }catch(Exception e){
+            success = e.getMessage();
+            return success;        
+    }
+        success = "yes";
+        return success;
+    }
+
+    @Override
+    public String updateRec(Connection connection) throws SQLException {
+        String success = "no";
+        String sql = "{call person_update(?, ?, ?, ?, ?, ?, ?)}";
+
+        try (CallableStatement cst = connection.prepareCall(sql);) {
+            cst.setInt(1, this.getPersonId());
+            cst.setString(2, this.getPersonCode());
+            cst.setString(3, this.getPersonName());
+            cst.setString(4, this.getPersonLBO());
+            cst.setString(5, this.getPersonJMBG());
+            cst.setString(6, this.getPersonHealthCard());
+            cst.setInt(7, this.getPersonSubstation());
+    
+            boolean updated = cst.execute();
+        } catch (Exception e) {
+            success = e.getMessage();
+            return success;
+        }
+        success = "yes";
+        return success;
+    }
+
+    @Override
+    public String deleteRec(Connection connection) throws SQLException {
+        String success = "no";
+        String sql = "{call person_delete(?)}";
+
+        try (CallableStatement cst = connection.prepareCall(sql);) {
+            cst.setInt(1, this.getPersonId());
+            boolean deleted = cst.execute();
+        } catch (Exception e) {
+            success = e.getMessage();
+            return success;
+        }
+        success = "yes";
+        return success;
     }
     
     public static ArrayList<Person> getPersonByJMBG(Connection connection, String jmbg){
@@ -317,6 +381,31 @@ public class Person {
         return p;
 
     }   
+    
+    public static Person getPersonById(Connection connection, int currentId){
+        String sql = "Select * From person_v Where p_id = ?";
+        Person currPerson = new Person();
+        try (PreparedStatement pst = connection.prepareStatement(sql);) {
+            pst.setInt(1, currentId);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                currPerson.setPersonId(rs.getInt(1));
+                currPerson.setPersonCode(rs.getString(2));
+                currPerson.setPersonName(rs.getString(3));
+                currPerson.setPersonLBO(rs.getString(4));
+                currPerson.setPersonJMBG(rs.getString(5));
+                currPerson.setPersonHealthCard(rs.getString(6));
+                currPerson.setPersonSubstation(rs.getInt(7));
+                currPerson.setLocationZip(rs.getString(8));
+                currPerson.setLocationName(rs.getString(9));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return currPerson;
+
+    }
     
     public static Map<String, Object> argMap(){
         Map<String, Object> m = new LinkedHashMap<>();

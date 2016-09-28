@@ -141,7 +141,7 @@
                             <h:column>
                                 <f:facet name ="header"></f:facet>
                                 <h:commandButton class="cmdBtn"
-                                                 action="#{measureBean.editMeasure(measure)}"
+                                                 action="#{personBean.editPerson(person)}"
                                                  rendered="#{not measure.canEdit}"
                                                  value="Izmeni"
                                                  title="Izmeni selektovani red">
@@ -151,7 +151,7 @@
                                 <f:facet name ="header"></f:facet>
                                 <h:commandButton onclick="if (! confirm('Sigurno brišete zapis?')) return false"
                                                  class="cmdBtn"
-                                                 action="#{measureBean.deleteMeasure(measure)}"
+                                                 action="#{personBean.deletePerson(person)}"
                                                  rendered="#{not measure.canEdit}"
                                                  value="Obriši"
                                                  title="Trajno brisanje podataka">
@@ -172,7 +172,7 @@
                         <br/>
                         <h:commandButton class="cmdBtn" 
                                          value="Sačuvaj izmene" 
-                                         action="#{measureBean.updateMeasure()}"
+                                         action="#{personBean.updatePerson()}"
                                          accesskey="i"
                                          title="Snimi u bazu podataka(Alt+Shift+I)">
                         </h:commandButton>
