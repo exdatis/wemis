@@ -17,21 +17,37 @@
  */
 package personWait;
 
+import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import net.exdatis.operator.CurrentUserBean;
+import net.exdatis.waitingRoom.AmbulanceRoom;
+import net.exdatis.wdb.Wdb;
 
 /**
  *
  * @author morar
  */
-public class AmbulanceWaitBean {
+
+@ManagedBean(name = "ambulanceWaitBean", eager = true)
+@ViewScoped
+public class AmbulanceWaitBean implements Serializable {
     
-    private int waitId;
-    private Timestamp waitTime;
-    private int waitPriority;
-    private int waitRoom;
-    private int waitPersonId;
-    private int waitStatus;
+    // za db
+    private final String currentUser = CurrentUserBean.getDB_USER();
+    private final String currentPwd = CurrentUserBean.getDB_PWD();
+    private final String currentHost = CurrentUserBean.getDB_HOST();
+    
+    private int awId;
+    private Timestamp awTime;
+    private int awPriority;
+    private int awRoom;
+    private int awPerson;
+    private int awStatus;
     private String dbUser;
     private String roomCode;
     private String roomName;
@@ -40,7 +56,21 @@ public class AmbulanceWaitBean {
     private String personLBO;
     private String personHealthCard;
     
-    private Map<String, Object> priorities;
+    private final Connection connection = Wdb.getDbConnection(this.currentUser, this.currentPwd, this.currentHost);
+    /**
+     * Lista prioriteta za comboBox;
+     */
+    private Map<String, Object> priorities = AmbulanceWait.getPriorityMap();
+    
+    /**
+     * Lista ambulatnih cekaonica za comboBox.
+     */
+    private Map<String, Object> rooms = AmbulanceRoom.roomMap(connection);
+    
+    /**
+     * Lista kreiranih cekanja(ambulanta). Var ce biti wait,
+     */
+    private ArrayList<AmbulanceWait> standby;
     
     
     

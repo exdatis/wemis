@@ -61,7 +61,7 @@ public class PersonBean implements Serializable{
     private ArrayList<Person> persons;
     private Person selectedPerson;
 
-    private Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);
+    private final Connection connection = Wdb.getDbConnection(currentUser, currentPwd, currentHost);
       
     private Map<String, Object> locations = Location.getLocationsMap(connection);
 
@@ -159,10 +159,6 @@ public class PersonBean implements Serializable{
 
     public Connection getConnection() {
         return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
     }
 
     public String getErrorMessage() {

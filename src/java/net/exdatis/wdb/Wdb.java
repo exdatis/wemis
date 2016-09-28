@@ -20,6 +20,8 @@ package net.exdatis.wdb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Klasa sa statickom metodom za dobijanje konekcije sa bazom podataka.
@@ -33,8 +35,12 @@ public final class Wdb {
     private Wdb() {
     }
     
-    public static Connection getDbConnection(String userName, String userPassword, String dbHost) throws ClassNotFoundException{
-        Class.forName("com.mysql.jdbc.Driver"); // ucitaj biblioteku
+    public static Connection getDbConnection(String userName, String userPassword, String dbHost){
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); // ucitaj biblioteku
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Wdb.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Connection connection = null;
         
         String url = "jdbc:mysql://" + dbHost + ":" + DB_PORT + "/" + DB_NAME;

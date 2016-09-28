@@ -143,8 +143,6 @@ public class CurrentUserBean implements Serializable {
         
         try{
             connection = Wdb.getDbConnection(this.userName, this.userPassword, this.dbHost);
-        } catch (ClassNotFoundException ex) {
-            this.setCurrentMessage(ex.getMessage());
         }catch(Exception e){
             this.setCurrentMessage(e.getMessage());
             return null;
