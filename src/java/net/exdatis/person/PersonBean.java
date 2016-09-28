@@ -25,9 +25,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.Facelet;
 import net.exdatis.location.Location;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.wdb.Wdb;
+import personWait.AmbulanceWaitBean;
 
 /**
  *
@@ -286,6 +289,8 @@ public class PersonBean implements Serializable{
     }
 
     public String searchPerson() {
+        this.resetPersonForWait(); // nema iabranih pacijenata
+        // pretrazi pacijente-osobe
         switch (this.currentSearchArgument) {
             case FULL_JMBG:
                 this.setPersons(Person.getPersonByJMBG(this.connection, this.searchText));
@@ -309,6 +314,21 @@ public class PersonBean implements Serializable{
                 this.setPersons(Person.getPersonByJMBG(this.connection, this.searchText));
                 break;
         }
+        return null;
+    }
+    
+    public void resetPersonForWait(){
+        // reset newPatient from AmbulanceWaitBean (static method)
+        this.setErrorMessage(null);
+        AmbulanceWaitBean.setNewPerson(0);       
+    }
+    
+    public String setPersonForWait(Person p){
+        // set newPatient from AmbulanceWaitBean (static method)
+        this.setErrorMessage(null);
+        AmbulanceWaitBean.setNewPerson(p.getPersonId());  
+        String prepareMsg = String.format("Za prijavljivanje selektovan pacijent ID: %d - %s. Popunite ostale podatke i snimite prijavu.", p.getPersonId(), p.getPersonName());
+        this.setErrorMessage(prepareMsg);
         return null;
     }
 

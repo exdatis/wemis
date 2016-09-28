@@ -28,8 +28,8 @@ import javax.faces.bean.ViewScoped;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.waitingRoom.AmbulanceRoom;
 import net.exdatis.wdb.Wdb;
-import patientStatus.PatientPriority;
-import patientStatus.PatientStatus;
+import net.exdatis.patientStatus.PatientPriority;
+import net.exdatis.patientStatus.PatientStatus;
 
 /**
  *
@@ -61,6 +61,8 @@ public class AmbulanceWaitBean implements Serializable {
     private String personHealthCard;
     private String priorityName;
     private String statusName;
+    
+    private String errorMessage;
     
     private AmbulanceWait selectedAw;
     
@@ -244,6 +246,16 @@ public class AmbulanceWaitBean implements Serializable {
         this.statusName = statusName;
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    
+    
     public Map<String, Object> getStatus() {
         return status;
     }
@@ -260,7 +272,15 @@ public class AmbulanceWaitBean implements Serializable {
         this.standby = standby;
     }
     
-    
+    public String addWait(){
+        // ako nije izabran pacijent
+        if(newPerson == 0){
+            String msg = "Morate najpre izabrati pacijenta za prijavu! Nakon toga odredite prioritet i čekaonicu.";
+            this.setErrorMessage(msg);
+            return null;
+        }
+        return null; // TODO
+    }
     
     
 }

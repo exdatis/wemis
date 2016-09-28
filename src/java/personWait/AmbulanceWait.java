@@ -193,7 +193,22 @@ public class AmbulanceWait {
             ResultSet rs = cst.executeQuery();
             while(rs.next()){
                 AmbulanceWait w = new AmbulanceWait();
-                //TODO raspakuj i poredjaj elemente.
+                w.setAwId(rs.getInt(1));
+                w.setAwTime(rs.getTimestamp(2));
+                w.setAwPriority(rs.getInt(3));
+                w.setAwRoom(rs.getInt(4));
+                w.setAwPerson(rs.getInt(5));
+                w.setAwStatus(rs.getInt(6));
+                w.setAwDbUser(rs.getString(7));
+                w.setRoomCode(rs.getString(8));
+                w.setRoomName(rs.getString(9));
+                w.setPersonName(rs.getString(10));
+                w.setPersonJMBG(rs.getString(11));
+                w.setPersonLBO(rs.getString(12));
+                w.setPersonHealthCard(rs.getString(13));
+                w.setPriorityName(rs.getString(14));
+                w.setStatusName(rs.getString(15));
+                aw.add(w);
             }
             
         } catch (SQLException ex) {
