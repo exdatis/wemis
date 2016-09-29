@@ -282,5 +282,14 @@ public class AmbulanceWaitBean implements Serializable {
         return null; // TODO
     }
     
+    public String deleteWait(AmbulanceWait w){
+        return null;
+    }
+    
+    public String refreshWait(){
+        this.setErrorMessage(null);
+        this.standby = AmbulanceWait.getTodayAw(this.connection);
+        return null;
+    }
     
 }

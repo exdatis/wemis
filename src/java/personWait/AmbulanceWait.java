@@ -41,6 +41,7 @@ public class AmbulanceWait {
     private int awRoom;
     private int awPerson;
     private int awStatus;
+    private boolean canEdit;
     /**
      * Samo korisnik koji je uneo podataka u bazu.
      */
@@ -57,6 +58,7 @@ public class AmbulanceWait {
     private String statusName;
 
     public AmbulanceWait() {
+        this.canEdit = false;
     }
 
     public AmbulanceWait(int awPriority, int awRoom, int awPerson) {
@@ -120,6 +122,16 @@ public class AmbulanceWait {
     public void setAwDbUser(String awDbUser) {
         this.awDbUser = awDbUser;
     }
+
+    public boolean isCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
+    }
+    
+    
 
     public String getRoomCode() {
         return roomCode;

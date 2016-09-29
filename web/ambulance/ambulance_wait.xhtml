@@ -192,7 +192,7 @@
                     <div align ="center" class="divPrepareMsg">
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                         <tpw:waitForm 
                             priorityLabel="Prioritet"
                             priorityValue="#{ambulanceWaitBean.awPriority}"
@@ -203,10 +203,28 @@
                             btnSubmitLabel="Prijavi pacijenta"
                             btnSubmit="#{ambulanceWaitBean.addWait()}">
                         </tpw:waitForm>
-                        <h:form>
-                            <h:commandLink value="Refresh" action="#"></h:commandLink>
-                        </h:form>
-                        
+                        <!-- tblWait -->
+                        <tpw:waitTbl
+                            refreshLbl="Refresh"
+                            refreshAction="#{ambulanceWaitBean.refreshWait()}"
+                            tblValue="#{ambulanceWaitBean.standby}"
+                            idLbl="ID"
+                            idValue="#{ambulanceWaitBean.awId}"
+                            timeLbl="Vreme"
+                            timeValue="#{ambulanceWaitBean.awTime}"
+                            roomLbl="Čekaonica"
+                            roomValue="#{ambulanceWaitBean.roomName}"
+                            statusLbl="Status"
+                            statusValue="#{ambulanceWaitBean.statusName}"
+                            personNameLbl="Pacijent"
+                            personNameValue="#{ambulanceWaitBean.personName}"
+                            personJmbgLbl="JMBG"
+                            personJmbgValue="#{ambulanceWaitBean.personJMBG}"
+                            btnDeleteLabel="Izbaci"
+                            btnDelete="#{ambulanceWaitBean.deleteWait(wait)}"
+                            cannotEdit="#{not wait.canEdit}"
+                            canEdit="#{wait.canEdit}">
+                        </tpw:waitTbl>
                     </h:panelGrid>
 
                 </div>
