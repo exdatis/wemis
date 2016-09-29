@@ -63,6 +63,16 @@ and open the template in the editor.
     overflow-y: auto;
 }
 
+.divFormMany{
+    padding: 3px; 
+    height: 200px; 
+    overflow-x: auto; 
+    overflow-y: auto; 
+    border-color: cornflowerblue; 
+    border-collapse: collapse; 
+    border-style: solid; 
+    border-radius: 15px 15px 0 0;
+}
 .divErrorMsg{
     /* clear: both; */
     border-radius: 15px 15px 15px 15px;
@@ -70,6 +80,16 @@ and open the template in the editor.
     width: 100%;
     overflow-x: scroll;
 }
+
+.divPrepareMsg{
+    /* clear: both; */
+    border-radius: 15px 15px 15px 15px;
+    background-color: cornflowerblue;
+    color: navy;
+    width: 100%;
+    overflow-x: scroll;
+}
+
 
 .lblError{
     color: yellow;

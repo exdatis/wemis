@@ -26,7 +26,7 @@
                     <h:form>
                         <div align="center" class="divForm" >
                             <h:panelGrid columns="3" border="0" bgcolor="silver">
-                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 235px">
+                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 245px">
                                     <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
                                 </h:selectOneMenu>  
 
@@ -187,7 +187,11 @@
                     <h:outputText class="lblError"  value="#{ambulanceWaitBean.errorMessage}"></h:outputText>
 
                 </div>
-                <div id="waitForm" style="padding: 3px; height: 200px; overflow-x: auto; overflow-y: auto; border-color: cornflowerblue; border-collapse: collapse; border-style: solid; border-radius: 15px 15px 0 0;">
+
+                <div class="divFormMany">
+                    <div align ="center" class="divPrepareMsg">
+                        <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
+                    </div>
                     <h:panelGrid columns="2">
                         <tpw:waitForm 
                             priorityLabel="Prioritet"
@@ -199,7 +203,10 @@
                             btnSubmitLabel="Prijavi pacijenta"
                             btnSubmit="#{ambulanceWaitBean.addWait()}">
                         </tpw:waitForm>
-                        <b>Ovde sam</b>
+                        <h:form>
+                            <h:commandLink value="Refresh" action="#"></h:commandLink>
+                        </h:form>
+                        
                     </h:panelGrid>
 
                 </div>

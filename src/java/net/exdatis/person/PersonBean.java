@@ -25,8 +25,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.Facelet;
 import net.exdatis.location.Location;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.wdb.Wdb;
@@ -60,6 +58,7 @@ public class PersonBean implements Serializable{
     private Person.ArgType currentSearchArgument;
 
     private String errorMessage;
+    private String newPatientMsg;
 
     private ArrayList<Person> persons;
     private Person selectedPerson;
@@ -172,6 +171,16 @@ public class PersonBean implements Serializable{
         this.errorMessage = errorMessage;
     }
 
+    public String getNewPatientMsg() {
+        return newPatientMsg;
+    }
+
+    public void setNewPatientMsg(String newPatientMsg) {
+        this.newPatientMsg = newPatientMsg;
+    }
+    
+    
+
     public Map<String, Object> getArgumentTypes() {
         return argumentTypes;
     }
@@ -213,7 +222,7 @@ public class PersonBean implements Serializable{
     }
 
     public void resetValues() {
-        this.setErrorMessage(null);
+        this.clearMessages();
         this.setPersonCode(null);
         this.setPersonName(null);
         this.setPersonLBO(null);
@@ -224,7 +233,7 @@ public class PersonBean implements Serializable{
     }
 
     public String addPerson() throws SQLException {
-        this.setErrorMessage(null);
+        this.clearMessages();
         Person p = new Person();
         p.setPersonCode(personCode);
         p.setPersonName(personName);
@@ -245,7 +254,7 @@ public class PersonBean implements Serializable{
     }
     
     public String deletePerson(Person p) throws SQLException{
-        this.setErrorMessage(null);
+        this.clearMessages();
         String msg = p.deleteRec(this.getConnection());
         if(msg.equalsIgnoreCase("yes")){
             persons.remove(p);
@@ -258,6 +267,7 @@ public class PersonBean implements Serializable{
     }
     
     public String editPerson(Person p){
+        this.clearMessages();
         this.setSelectedPerson(p);
         p.setCanEdit(true);
         return null;
@@ -270,8 +280,8 @@ public class PersonBean implements Serializable{
             this.setErrorMessage(msg);
             return null;
         }
-        // resetuj poruku
-        this.setErrorMessage(null);
+        // resetuj poruke
+        this.clearMessages();
         // update selektovanog sloga
         String success = this.getSelectedPerson().updateRec(this.getConnection());
         if(success.equalsIgnoreCase("yes")){
@@ -319,17 +329,25 @@ public class PersonBean implements Serializable{
     
     public void resetPersonForWait(){
         // reset newPatient from AmbulanceWaitBean (static method)
-        this.setErrorMessage(null);
+        this.clearMessages();
         AmbulanceWaitBean.setNewPerson(0);       
     }
     
     public String setPersonForWait(Person p){
         // set newPatient from AmbulanceWaitBean (static method)
-        this.setErrorMessage(null);
+        this.clearMessages();
         AmbulanceWaitBean.setNewPerson(p.getPersonId());  
-        String prepareMsg = String.format("Za prijavljivanje selektovan pacijent ID: %d - %s. Popunite ostale podatke i snimite prijavu.", p.getPersonId(), p.getPersonName());
-        this.setErrorMessage(prepareMsg);
+        String prepareMsg = String.format("Selektovan pacijent ID: %d - %s. Popunite ostale podatke i snimite prijavu.", p.getPersonId(), p.getPersonName());
+        this.setNewPatientMsg(prepareMsg);
         return null;
+    }
+    
+    /**
+     * Obrisi postojece poruke.
+     */
+    public void clearMessages(){
+        this.setErrorMessage(null);
+        this.setNewPatientMsg(null);
     }
 
 }
