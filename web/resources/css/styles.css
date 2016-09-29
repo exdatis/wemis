@@ -48,7 +48,7 @@ and open the template in the editor.
     border-style: solid;
     overflow-x: auto; 
     overflow-y: auto;
-    height: 150px; 
+    height: 100px;; 
     align-items: center
 }
 
@@ -66,7 +66,7 @@ and open the template in the editor.
 .divFormMany{
     padding: 3px; 
     background-color: darkgray;
-    height: 200px; 
+    height: 250px;
     overflow-x: auto; 
     overflow-y: auto; 
     border-color: cornflowerblue; 
