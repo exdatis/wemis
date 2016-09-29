@@ -43,7 +43,7 @@ public final class Wdb {
         }
         Connection connection = null;
         
-        String url = "jdbc:mysql://" + dbHost + ":" + DB_PORT + "/" + DB_NAME;
+        String url = "jdbc:mysql://" + dbHost + ":" + DB_PORT + "/" + DB_NAME + "?useUnicode=true&amp;characterEncoding=utf-8";
         
         try{
             connection = DriverManager.getConnection(url, userName, userPassword);

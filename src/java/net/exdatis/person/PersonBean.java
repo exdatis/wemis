@@ -234,6 +234,12 @@ public class PersonBean implements Serializable{
 
     public String addPerson() throws SQLException {
         this.clearMessages();
+        // proveri pre slanja na server
+        if(personName.isEmpty() || personJMBG.isEmpty()){
+            String msg = "Error: Prezime-ime i matični broj su obavezni podaci.";
+            this.setErrorMessage(msg);
+            return null;
+        }
         Person p = new Person();
         p.setPersonCode(personCode);
         p.setPersonName(personName);
