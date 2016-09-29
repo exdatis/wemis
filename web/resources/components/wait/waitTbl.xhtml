@@ -22,6 +22,8 @@
         <composite:attribute name="personNameLbl"></composite:attribute>
         <composite:attribute name="personNameValue"></composite:attribute>
         <composite:attribute name="personJmbgLbl"></composite:attribute>
+        <composite:attribute name="priorityLbl"></composite:attribute>
+        <composite:attribute name="priorityValue"></composite:attribute>
         <composite:attribute name="personJmbgValue"></composite:attribute>
         <composite:attribute name="btnDeleteLabel"></composite:attribute>
         <composite:attribute
@@ -74,6 +76,11 @@
                 <h:column>
                     <f:facet name="header">#{cc.attrs.personJmbgLbl}</f:facet>
                     <h:outputText value="#{cc.attrs.personJmbgValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.priorityLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.priorityValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
                 </h:column>
 
                 <h:column>

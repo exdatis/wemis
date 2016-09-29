@@ -65,12 +65,14 @@ and open the template in the editor.
 
 .divFormMany{
     padding: 3px; 
+    background-color: darkgray;
     height: 200px; 
     overflow-x: auto; 
     overflow-y: auto; 
     border-color: cornflowerblue; 
     border-collapse: collapse; 
     border-style: solid; 
+    border-width: thin;
     border-radius: 15px 15px 0 0;
 }
 .divErrorMsg{

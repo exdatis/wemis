@@ -19,6 +19,7 @@ package personWait;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class AmbulanceWaitBean implements Serializable {
     private int awRoom;
     private int awPerson;
     private int awStatus;
-    private String dbUser;
+    private String awDbUser;
     
     private String roomCode;
     private String roomName;
@@ -143,11 +144,11 @@ public class AmbulanceWaitBean implements Serializable {
     }
 
     public String getDbUser() {
-        return dbUser;
+        return awDbUser;
     }
 
     public void setDbUser(String dbUser) {
-        this.dbUser = dbUser;
+        this.awDbUser = dbUser;
     }
 
     public String getRoomCode() {
@@ -272,17 +273,49 @@ public class AmbulanceWaitBean implements Serializable {
         this.standby = standby;
     }
     
-    public String addWait(){
+    public String addWait() throws SQLException{
+        // resetuj poruku
+        this.setErrorMessage(null);
         // ako nije izabran pacijent
         if(newPerson == 0){
             String msg = "Morate najpre izabrati pacijenta za prijavu! Nakon toga odredite prioritet i čekaonicu.";
             this.setErrorMessage(msg);
             return null;
         }
+        // else create aw
+        AmbulanceWait aw = new AmbulanceWait();
+        aw.setAwPriority(awPriority);
+        aw.setAwRoom(awRoom);
+        aw.setAwPerson(newPerson); // static var
+        String msg = aw.insertRec(connection);
+        if(msg.equalsIgnoreCase("yes")){
+            // pronadji u pogledu i dodaj
+            AmbulanceWait newWait = AmbulanceWait.getAwById(connection, aw.getAwId());
+            standby.add(newWait);
+            return null;
+        }
+        // else error
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
         return null; // TODO
     }
     
-    public String deleteWait(AmbulanceWait w){
+    public String deleteWait(AmbulanceWait w) throws SQLException{
+        this.setErrorMessage(null);
+        // proveri status pre slanja
+        if(w.getAwStatus() > 1){
+            String msg = "Error: Primljeni i otpušteni pacijenti nemogu se brisati.";
+            this.setErrorMessage(msg);
+            return null;
+        }
+        String msg = w.deleteRec(connection);
+        if(msg.equalsIgnoreCase("yes")){
+            this.standby.remove(w);
+            return null;
+        }
+        // else
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
         return null;
     }
     

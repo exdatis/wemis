@@ -188,11 +188,11 @@
 
                 </div>
 
-                <div class="divFormMany">
+                <div align ="center" class="divFormMany">
                     <div align ="center" class="divPrepareMsg">
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="3" style="background-color: lightgray">
                         <tpw:waitForm 
                             priorityLabel="Prioritet"
                             priorityValue="#{ambulanceWaitBean.awPriority}"
@@ -209,17 +209,19 @@
                             refreshAction="#{ambulanceWaitBean.refreshWait()}"
                             tblValue="#{ambulanceWaitBean.standby}"
                             idLbl="ID"
-                            idValue="#{ambulanceWaitBean.awId}"
+                            idValue="#{wait.awId}"
                             timeLbl="Vreme"
-                            timeValue="#{ambulanceWaitBean.awTime}"
+                            timeValue="#{wait.awTime}"
                             roomLbl="Čekaonica"
-                            roomValue="#{ambulanceWaitBean.roomName}"
+                            roomValue="#{wait.roomName}"
                             statusLbl="Status"
-                            statusValue="#{ambulanceWaitBean.statusName}"
+                            statusValue="#{wait.statusName}"
                             personNameLbl="Pacijent"
-                            personNameValue="#{ambulanceWaitBean.personName}"
+                            personNameValue="#{wait.personName}"
                             personJmbgLbl="JMBG"
-                            personJmbgValue="#{ambulanceWaitBean.personJMBG}"
+                            personJmbgValue="#{wait.personJMBG}"
+                            priorityLbl="Prioritet"
+                            priorityValue="#{wait.priorityName}"
                             btnDeleteLabel="Izbaci"
                             btnDelete="#{ambulanceWaitBean.deleteWait(wait)}"
                             cannotEdit="#{not wait.canEdit}"

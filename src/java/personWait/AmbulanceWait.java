@@ -28,12 +28,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.exdatis.wdb.CRUDdata;
 
 /**
  *
  * @author morar
  */
-public class AmbulanceWait {
+public class AmbulanceWait implements CRUDdata{
     
     private int awId;
     private Timestamp awTime;
@@ -206,6 +207,7 @@ public class AmbulanceWait {
             while(rs.next()){
                 AmbulanceWait w = new AmbulanceWait();
                 w.setAwId(rs.getInt(1));
+                // ovo je ok System.out.println("Id: " + rs.getTimestamp(2) + " ");
                 w.setAwTime(rs.getTimestamp(2));
                 w.setAwPriority(rs.getInt(3));
                 w.setAwRoom(rs.getInt(4));
@@ -227,8 +229,79 @@ public class AmbulanceWait {
             Logger.getLogger(AmbulanceWait.class.getName()).log(Level.SEVERE, null, ex);
             return aw;
         }
-        
+        //System.out.println("Lista " + aw);
         return aw;
+    }
+    
+    public static AmbulanceWait getAwById(Connection connection, int currentId) {
+        String sql = "Select * From ambulance_wait_v Where aw_id = ?";
+        AmbulanceWait w = new AmbulanceWait();
+        try (PreparedStatement pst = connection.prepareStatement(sql);) {
+            pst.setInt(1, currentId);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                w.setAwId(rs.getInt(1));
+                w.setAwTime(rs.getTimestamp(2));
+                w.setAwPriority(rs.getInt(3));
+                w.setAwRoom(rs.getInt(4));
+                w.setAwPerson(rs.getInt(5));
+                w.setAwStatus(rs.getInt(6));
+                w.setAwDbUser(rs.getString(7));
+                w.setRoomCode(rs.getString(8));
+                w.setRoomName(rs.getString(9));
+                w.setPersonName(rs.getString(10));
+                w.setPersonJMBG(rs.getString(11));
+                w.setPersonLBO(rs.getString(12));
+                w.setPersonHealthCard(rs.getString(13));
+                w.setPriorityName(rs.getString(14));
+                w.setStatusName(rs.getString(15));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AmbulanceWait.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return w;
+
+    }
+
+    @Override
+    public String insertRec(Connection connection) throws SQLException {
+        String success = "no";
+        String sql = "{call ambulance_wait_add(?, ?, ?, ?)}";
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            cst.setInt(1, this.getAwPriority());
+            cst.setInt(2, this.getAwRoom());
+            cst.setInt(3, this.getAwPerson());
+            cst.registerOutParameter(4, java.sql.Types.INTEGER);
+            boolean added = cst.execute();
+            this.setAwId(cst.getInt(4));
+        }catch(Exception e){
+            success = e.getMessage();
+            return success;
+        }
+        success = "yes";
+        return success;
+    }
+
+    @Override
+    public String updateRec(Connection connection) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String deleteRec(Connection connection) throws SQLException {
+        String success = "no";
+        String sql = "{call ambulance_wait_delete(?)}";
+
+        try (CallableStatement cst = connection.prepareCall(sql);) {
+            cst.setInt(1, this.getAwId());
+            boolean deleted = cst.execute();
+        } catch (Exception e) {
+            success = e.getMessage();
+            return success;
+        }
+        success = "yes";
+        return success;
     }
     
 }
