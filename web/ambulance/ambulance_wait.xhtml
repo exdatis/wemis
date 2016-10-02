@@ -16,7 +16,7 @@
 
                 <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet> 
 
-                <div align="center" class="divForm">
+                <div align="left" class="divForm">
                     <h:form>
                         <!-- messages -->
                         <div align="center" class="divErrorMsg">
@@ -26,9 +26,9 @@
                         </div>
                     </h:form> 
                     <h:form>
-                        <div align="center" class="divForm" >
+                        <div align="left" class="divForm" >
                             <h:panelGrid columns="3" border="0" bgcolor="silver">
-                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 245px">
+                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 235px">
                                     <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
                                 </h:selectOneMenu>  
 
@@ -65,7 +65,7 @@
                     </tp:personForm>
                 </div>
 
-                <div align="center" class="divTable">
+                <div align="left" class="divTable">
                     <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
                     <p:messages autoUpdate="true"></p:messages>
                     <h:form>
@@ -153,7 +153,7 @@
                             <h:column>
                                 <f:facet name ="header"></f:facet>
                                 <h:commandButton onclick="if (!confirm('Sigurno brišete zapis?'))
-                                                    return false"
+                                            return false"
                                                  class="cmdBtn"
                                                  action="#{personBean.deletePerson(person)}"
                                                  rendered="#{not person.canEdit}"
@@ -191,46 +191,46 @@
 
                 </div>
 
-                <div align ="center" class="divFormMany">
+                <div align ="left" class="divFormMany">
                     <div align ="center" class="divPrepareMsg">
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
-                    <h:panelGrid columns="3" style="background-color: lightgray">
-                        <tpw:waitForm 
-                            priorityLabel="Prioritet"
-                            priorityValue="#{ambulanceWaitBean.awPriority}"
-                            priorityValues="#{ambulanceWaitBean.priorities}"
-                            roomLabel="Čekaonica"
-                            roomValue="#{ambulanceWaitBean.awRoom}"
-                            roomValues="#{ambulanceWaitBean.rooms}"
-                            btnSubmitLabel="Prijavi pacijenta"
-                            btnSubmit="#{ambulanceWaitBean.addWait()}">
-                        </tpw:waitForm>
-                        <!-- tblWait -->
-                        <tpw:waitTbl
-                            refreshLbl="Refresh"
-                            refreshAction="#{ambulanceWaitBean.refreshWait()}"
-                            tblValue="#{ambulanceWaitBean.standby}"
-                            idLbl="ID"
-                            idValue="#{wait.awId}"
-                            timeLbl="Vreme"
-                            timeValue="#{wait.awTime}"
-                            roomLbl="Čekaonica"
-                            roomValue="#{wait.roomName}"
-                            statusLbl="Status"
-                            statusValue="#{wait.statusName}"
-                            personNameLbl="Pacijent"
-                            personNameValue="#{wait.personName}"
-                            personJmbgLbl="JMBG"
-                            personJmbgValue="#{wait.personJMBG}"
-                            priorityLbl="Prioritet"
-                            priorityValue="#{wait.priorityName}"
-                            btnDeleteLabel="Izbaci"
-                            btnDelete="#{ambulanceWaitBean.deleteWait(wait)}"
-                            cannotEdit="#{not wait.canEdit}"
-                            canEdit="#{wait.canEdit}">
-                        </tpw:waitTbl>
-                    </h:panelGrid>
+                    <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+
+                    <tpw:waitForm 
+                        priorityLabel="Prioritet"
+                        priorityValue="#{ambulanceWaitBean.awPriority}"
+                        priorityValues="#{ambulanceWaitBean.priorities}"
+                        roomLabel="Čekaonica"
+                        roomValue="#{ambulanceWaitBean.awRoom}"
+                        roomValues="#{ambulanceWaitBean.rooms}"
+                        btnSubmitLabel="Prijavi pacijenta"
+                        btnSubmit="#{ambulanceWaitBean.addWait()}">
+                    </tpw:waitForm>
+                    <!-- tblWait -->
+                    <tpw:waitTbl
+                        refreshLbl="Refresh"
+                        refreshAction="#{ambulanceWaitBean.refreshWait()}"
+                        tblValue="#{ambulanceWaitBean.standby}"
+                        idLbl="ID"
+                        idValue="#{wait.awId}"
+                        timeLbl="Vreme"
+                        timeValue="#{wait.awTime}"
+                        roomLbl="Čekaonica"
+                        roomValue="#{wait.roomName}"
+                        statusLbl="Status"
+                        statusValue="#{wait.statusName}"
+                        personNameLbl="Pacijent"
+                        personNameValue="#{wait.personName}"
+                        personJmbgLbl="JMBG"
+                        personJmbgValue="#{wait.personJMBG}"
+                        priorityLbl="Prioritet"
+                        priorityValue="#{wait.priorityName}"
+                        btnDeleteLabel="Izbaci"
+                        btnDelete="#{ambulanceWaitBean.deleteWait(wait)}"
+                        cannotEdit="#{not wait.canEdit}"
+                        canEdit="#{wait.canEdit}">
+                    </tpw:waitTbl>
 
                 </div>
             </ui:define>

@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 .Tbl{  
+    font-family: Tahoma, Arial;
     font-size: small;
     border-collapse:collapse;
     border:1px solid navy;
@@ -16,6 +17,8 @@ and open the template in the editor.
 }
 .TblHeader{
     text-align:left;
+    font-family: Tahoma, Arial;
+    font-size: smaller;
     background:none repeat scroll 0 0 midnightblue;
     border-bottom:1px solid #000000;  
     color: white;
@@ -23,29 +26,28 @@ and open the template in the editor.
 
 
 .TblOddRow{
-    text-align:left;
-    font-size: small; /* medium je bio */
     background:none repeat scroll 0 0 #FFFFFF;	
 }
 
 .TblEvenRow{
-    text-align:left;
-    font-size: small; /* medium je bio */
     background:none repeat scroll 0 0 #D3D3D3;
 }
 
 .TblColLeft{
     text-align:left;
-    font-size: small; /* medium je bio */
+    font-family: Tahoma, Arial;
+    font-size: smaller; /* medium je bio */
 }
 
 .TblColRight{
     text-align:right;
-    font-size: small; /* medium je bio */
+    font-family: Tahoma, Arial;
+    font-size: smaller; /* medium je bio */
 }
 
 .TblColCenter{
     text-align:right;
-    font-size: small;  /* medium je bio */  
+    font-family: Tahoma, Arial;
+    font-size: smaller;  /* medium je bio */  
 }
 

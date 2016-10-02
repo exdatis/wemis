@@ -10,6 +10,8 @@ and open the template in the editor.
 
 .divHeaderBtns{ 
     /* border-radius: 10px 10px 0 0; */
+    font-family: Tahoma, Arial;
+    font-size: smaller;
     background-color: midnightblue;
     border-collapse:collapse;
     border:1px solid navy;
@@ -18,6 +20,8 @@ and open the template in the editor.
 }
 
 .divSubHeader{
+    font-family: Tahoma, Arial;
+    font-size: smaller;
     background-color: white;
     border-collapse:collapse;
     border-radius: 15px 15px 15px 15px;
@@ -29,6 +33,8 @@ and open the template in the editor.
 
 .divFooter{
     clear: both;
+    font-family: Tahoma, Arial;
+    font-size: smaller;
     position:absolute;
     bottom:0;
     padding: 3px;
@@ -41,6 +47,8 @@ and open the template in the editor.
 .divTable{
     padding: 3px;
     background-color: gainsboro; 
+    font-family: Tahoma, Arial;
+    font-size: smaller;
     border-collapse: collapse;
     border-radius: 15px 15px 15px 15px;
     border-width: thin;
@@ -55,6 +63,7 @@ and open the template in the editor.
 .divForm{
     padding: 3px;
     background-color: gainsboro; 
+    font-size: smaller;
     border-radius: 0 0 0 15px;
     border-color: cornflowerblue;
     border-collapse: collapse;
@@ -66,6 +75,7 @@ and open the template in the editor.
 .divFormMany{
     padding: 3px; 
     background-color: darkgray;
+    font-size: smaller;
     height: 250px;
     overflow-x: auto; 
     overflow-y: auto; 
@@ -95,6 +105,7 @@ and open the template in the editor.
 
 .lblError{
     color: yellow;
+    font-family: Tahoma, Arial;
     /* font-weight: bold; */
     display: block;
     width: 99%;
@@ -120,6 +131,7 @@ and open the template in the editor.
 
 .formTitleCaption{
     color: navy;
-    font-size: small;
+    font-size: smaller;
+    font-family: Tahoma, Arial;
 }
 
