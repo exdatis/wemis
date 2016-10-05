@@ -44,7 +44,7 @@ and open the template in the editor.
     width: 98%;
 }
 
-.divTable{
+.divSmallTable{
     padding: 3px;
     background-color: gainsboro; 
     font-family: Tahoma, Arial;
@@ -56,15 +56,31 @@ and open the template in the editor.
     border-style: solid;
     overflow-x: auto; 
     overflow-y: auto;
-    height: 100px;; 
+    height: 200px;; 
     align-items: center
+}
+
+.divBigTable{
+    padding: 3px;
+    background-color: gainsboro; 
+    font-family: Tahoma, Arial;
+    font-size: smaller;
+    border-collapse: collapse;
+    border-radius: 15px 15px 15px 15px;
+    border-width: thin;
+    border-color: lightgray;
+    border-style: solid;
+    overflow-x: auto; 
+    overflow-y: auto;
+    height: 450px;; 
+    align-items: center    
 }
 
 .divForm{
     padding: 3px;
     background-color: gainsboro; 
     font-size: smaller;
-    border-radius: 0 0 0 15px;
+    border-radius: 0 0 15px 15px;
     border-color: cornflowerblue;
     border-collapse: collapse;
     border-width: thin;
@@ -72,11 +88,12 @@ and open the template in the editor.
     overflow-y: auto;
 }
 
-.divFormMany{
+.divFormManySmall{
     padding: 3px; 
     background-color: darkgray;
     font-size: smaller;
     height: 250px;
+    padding: 3px;
     overflow-x: auto; 
     overflow-y: auto; 
     border-color: cornflowerblue; 
@@ -85,6 +102,22 @@ and open the template in the editor.
     border-width: thin;
     border-radius: 15px 15px 0 0;
 }
+
+.divFormManyBig{
+    padding: 3px; 
+    background-color: darkgray;
+    font-size: smaller;
+    height: 450px;
+    padding: 5px;
+    overflow-x: auto; 
+    overflow-y: auto; 
+    border-color: cornflowerblue; 
+    border-collapse: collapse; 
+    border-style: solid; 
+    border-width: thin;
+    border-radius: 15px 15px 0 0;    
+}
+
 .divErrorMsg{
     /* clear: both; */
     border-radius: 15px 15px 15px 15px;

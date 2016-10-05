@@ -32,7 +32,7 @@ public interface CRUDdata {
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String insertRec(Connection connection) throws SQLException;
+    public String insertRec(Connection connection);
     
     /**
      * Sacuvaj izmene na zapisu.
@@ -40,7 +40,7 @@ public interface CRUDdata {
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String updateRec(Connection connection) throws SQLException;
+    public String updateRec(Connection connection);
     
     /**
      * Brisanje zapisa.
@@ -48,6 +48,6 @@ public interface CRUDdata {
      * @return (poruka o gresci ili uspehu)
      * @throws java.sql.SQLException
      */
-    public String deleteRec(Connection connection) throws SQLException;
+    public String deleteRec(Connection connection);
     
 }

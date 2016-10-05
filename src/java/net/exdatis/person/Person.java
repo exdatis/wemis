@@ -148,7 +148,7 @@ public class Person implements CRUDdata{
     }
     
     @Override
-    public String insertRec(Connection connection) throws SQLException {
+    public String insertRec(Connection connection) {
         String success = "no";
         String sql = "{call person_add(?, ?, ?, ?, ?, ?, ?)}";
         
@@ -162,7 +162,7 @@ public class Person implements CRUDdata{
             cst.registerOutParameter(7, java.sql.Types.INTEGER);
             boolean added = cst.execute();
             this.setPersonId(cst.getInt(7));
-        }catch(Exception e){
+        }catch(SQLException e){
             success = e.getMessage();
             return success;        
     }
@@ -171,7 +171,7 @@ public class Person implements CRUDdata{
     }
 
     @Override
-    public String updateRec(Connection connection) throws SQLException {
+    public String updateRec(Connection connection){
         String success = "no";
         String sql = "{call person_update(?, ?, ?, ?, ?, ?, ?)}";
 
@@ -194,7 +194,7 @@ public class Person implements CRUDdata{
     }
 
     @Override
-    public String deleteRec(Connection connection) throws SQLException {
+    public String deleteRec(Connection connection){
         String success = "no";
         String sql = "{call person_delete(?)}";
 

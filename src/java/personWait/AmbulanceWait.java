@@ -265,7 +265,7 @@ public class AmbulanceWait implements CRUDdata{
     }
 
     @Override
-    public String insertRec(Connection connection) throws SQLException {
+    public String insertRec(Connection connection){
         String success = "no";
         String sql = "{call ambulance_wait_add(?, ?, ?, ?)}";
         try(CallableStatement cst = connection.prepareCall(sql);){
@@ -284,12 +284,12 @@ public class AmbulanceWait implements CRUDdata{
     }
 
     @Override
-    public String updateRec(Connection connection) throws SQLException {
+    public String updateRec(Connection connection) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String deleteRec(Connection connection) throws SQLException {
+    public String deleteRec(Connection connection){
         String success = "no";
         String sql = "{call ambulance_wait_delete(?)}";
 
