@@ -50,6 +50,7 @@ public class Person implements CRUDdata{
     private String personLBO;
     private String personJMBG;
     private String personHealthCard;
+    private String personDocument;
     private int personSubstation;
     private String locationZip;
     private String locationName;
@@ -113,6 +114,15 @@ public class Person implements CRUDdata{
         this.personHealthCard = personHealthCard;
     }
 
+    public String getPersonDocument() {
+        return personDocument;
+    }
+
+    public void setPersonDocument(String personDocument) {
+        this.personDocument = personDocument;
+    }
+    
+
     public int getPersonSubstation() {
         return personSubstation;
     }
@@ -150,7 +160,7 @@ public class Person implements CRUDdata{
     @Override
     public String insertRec(Connection connection) {
         String success = "no";
-        String sql = "{call person_add(?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call person_add(?, ?, ?, ?, ?, ?, ?, ?)}";
         
         try(CallableStatement cst = connection.prepareCall(sql);){
             cst.setString(1, this.getPersonCode());
@@ -158,10 +168,11 @@ public class Person implements CRUDdata{
             cst.setString(3, this.getPersonLBO());
             cst.setString(4, this.getPersonJMBG());
             cst.setString(5, this.getPersonHealthCard());
-            cst.setInt(6, this.getPersonSubstation());
-            cst.registerOutParameter(7, java.sql.Types.INTEGER);
+            cst.setString(6, this.getPersonDocument());
+            cst.setInt(7, this.getPersonSubstation());
+            cst.registerOutParameter(8, java.sql.Types.INTEGER);
             boolean added = cst.execute();
-            this.setPersonId(cst.getInt(7));
+            this.setPersonId(cst.getInt(8));
         }catch(SQLException e){
             success = e.getMessage();
             return success;        
@@ -173,7 +184,7 @@ public class Person implements CRUDdata{
     @Override
     public String updateRec(Connection connection){
         String success = "no";
-        String sql = "{call person_update(?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call person_update(?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (CallableStatement cst = connection.prepareCall(sql);) {
             cst.setInt(1, this.getPersonId());
@@ -182,7 +193,8 @@ public class Person implements CRUDdata{
             cst.setString(4, this.getPersonLBO());
             cst.setString(5, this.getPersonJMBG());
             cst.setString(6, this.getPersonHealthCard());
-            cst.setInt(7, this.getPersonSubstation());
+            cst.setString(7, this.getPersonDocument());
+            cst.setInt(8, this.getPersonSubstation());
     
             boolean updated = cst.execute();
         } catch (Exception e) {
@@ -225,9 +237,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -254,9 +267,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));                
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));              
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -282,9 +296,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));                
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));              
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -311,9 +326,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));                
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));              
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -340,9 +356,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));                
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));              
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -369,9 +386,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));                
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));               
                 p.add(currPerson);
             }
         } catch (SQLException ex) {
@@ -395,9 +413,10 @@ public class Person implements CRUDdata{
                 currPerson.setPersonLBO(rs.getString(4));
                 currPerson.setPersonJMBG(rs.getString(5));
                 currPerson.setPersonHealthCard(rs.getString(6));
-                currPerson.setPersonSubstation(rs.getInt(7));
-                currPerson.setLocationZip(rs.getString(8));
-                currPerson.setLocationName(rs.getString(9));
+                currPerson.setPersonDocument(rs.getString(7));
+                currPerson.setPersonSubstation(rs.getInt(8));
+                currPerson.setLocationZip(rs.getString(9));
+                currPerson.setLocationName(rs.getString(10));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE, null, ex);

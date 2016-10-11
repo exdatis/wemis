@@ -17,6 +17,8 @@
         <composite:attribute name="jmbgValue"></composite:attribute>
         <composite:attribute name="healthCardLabel"></composite:attribute>
         <composite:attribute name="healthCardValue"></composite:attribute>
+        <composite:attribute name ="docLabel"></composite:attribute>
+        <composite:attribute name ="docValue"></composite:attribute>
         <composite:attribute name="locationLabel"></composite:attribute>
         <composite:attribute name="locationValue"></composite:attribute>
         <composite:attribute name="locationValues"></composite:attribute>
@@ -58,13 +60,17 @@
                 <h:outputLabel value="#{cc.attrs.healthCardLabel}" class="formTitleCaption" ></h:outputLabel>                
                 <h:inputText id="fieldHealthCard" value="#{cc.attrs.healthCardValue}" size="30" >
                 </h:inputText>
-
+                
+                <h:outputLabel value="#{cc.attrs.docLabel}" class="formTitleCaption" ></h:outputLabel>                
+                <h:inputText  value="#{cc.attrs.docValue}" size="45" >
+                </h:inputText>
                 
                 <h:outputLabel value="#{cc.attrs.locationLabel}" class="formTitleCaption"></h:outputLabel>
-                <h:selectOneMenu value="#{cc.attrs.locationValue}" style="width: 200px">
+                <h:selectOneMenu value="#{cc.attrs.locationValue}" style="width: 175px">
                     <f:selectItems value="#{cc.attrs.locationValues}">
                     </f:selectItems>
                 </h:selectOneMenu>
+                
 
                 <h:commandButton
                     action="#{cc.attrs.btnReset}"

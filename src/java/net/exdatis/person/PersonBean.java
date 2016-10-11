@@ -49,6 +49,7 @@ public class PersonBean implements Serializable{
     private String personLBO;
     private String personJMBG;
     private String personHealthCard;
+    private String personDocument;
     private int personSubstation;
     private String locationZip;
     private String locationName;
@@ -125,6 +126,15 @@ public class PersonBean implements Serializable{
         this.personHealthCard = personHealthCard;
     }
 
+    public String getPersonDocument() {
+        return personDocument;
+    }
+
+    public void setPersonDocument(String personDocument) {
+        this.personDocument = personDocument;
+    }
+
+    
     public int getPersonSubstation() {
         return personSubstation;
     }
@@ -228,6 +238,7 @@ public class PersonBean implements Serializable{
         this.setPersonLBO(null);
         this.setPersonJMBG(null);
         this.setPersonHealthCard(null);
+        this.setPersonDocument(null);
         this.setPersonSubstation(0); // pancevo 689
 
     }
@@ -246,6 +257,7 @@ public class PersonBean implements Serializable{
         p.setPersonLBO(personLBO);
         p.setPersonJMBG(personJMBG);
         p.setPersonHealthCard(personHealthCard);
+        p.setPersonDocument(personDocument);
         p.setPersonSubstation(personSubstation);
         String msg = p.insertRec(this.getConnection());
         if(msg.equalsIgnoreCase("yes")){

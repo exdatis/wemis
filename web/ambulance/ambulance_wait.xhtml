@@ -25,6 +25,8 @@
 
                         </div>
                     </h:form> 
+                    <h3>Pretraga i unos novih pacijenata - korisnika</h3>
+                    <hr></hr>
                     <h:form>
                         <div align="left" class="divForm" >
                             <h:panelGrid columns="3" border="0" bgcolor="silver">
@@ -43,6 +45,7 @@
                             </h:panelGrid>
                         </div>
                     </h:form>
+                    <hr></hr>
                     <tp:personForm
                         codeLabel="Šifra"
                         codeValue="#{personBean.personCode}"
@@ -54,6 +57,8 @@
                         jmbgValue="#{personBean.personJMBG}"
                         healthCardLabel="Zdravstvena"
                         healthCardValue="#{personBean.personHealthCard}"
+                        docLabel="DocumentID"
+                        docValue="#{personBean.personDocument}"
                         locationLabel="Ispostava *"
                         locationValue="#{personBean.personSubstation}"
                         locationValues="#{personBean.locations}"
@@ -64,6 +69,8 @@
                         >
                     </tp:personForm>
                 </div>
+
+                <hr></hr>
 
                 <div align="left" class="divSmallTable">
                     <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
@@ -131,6 +138,13 @@
                                 </h:inputText>
                                 <h:outputText value="#{person.personHealthCard}" rendered="#{not person.canEdit}"></h:outputText>
                             </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">DocID</f:facet>
+                                <h:inputText id="fieldOldDoc" value="#{person.personDocument}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personDocument}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>                            
 
                             <h:column>
                                 <f:facet name="header">Ispostava</f:facet>
@@ -195,6 +209,10 @@
                     <div align ="center" class="divPrepareMsg">
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
+                    
+                    <h3>Prijava pacijenata za čekaonicu </h3>
+                    <hr></hr>
+                    
                     <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
                     <tpw:waitForm 
                         priorityLabel="Prioritet"
@@ -206,6 +224,7 @@
                         btnSubmitLabel="Prijavi pacijenta"
                         btnSubmit="#{ambulanceWaitBean.addWait()}">
                     </tpw:waitForm>
+                    <hr></hr>
                     <!-- tblWait -->
                     <tpw:waitTbl
                         refreshLbl="Refresh"
@@ -232,6 +251,10 @@
                     </tpw:waitTbl>
 
                 </div>
+            </ui:define>
+            
+            <ui:define name="footer">
+                
             </ui:define>
         </ui:composition>
     </h:body>
