@@ -17,10 +17,16 @@
  */
 package net.exdatis.medicineOfWork;
 
+import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.operator.CurrentUserBean;
+import net.exdatis.wdb.Wdb;
 
 /**
  *
@@ -29,7 +35,7 @@ import net.exdatis.operator.CurrentUserBean;
 
 @ManagedBean(name="mowBean", eager = true)
 @ViewScoped
-public class MOWwaitBean {
+public class MOWwaitBean implements Serializable{
     
     // za db
     private final String currentUser = CurrentUserBean.getDB_USER();
@@ -43,7 +49,141 @@ public class MOWwaitBean {
     private int waitPerson;
     
     // dodatak iz pogleda
-    private String roomName;
+    private String reasonName;
     private String personName;
-    private String personJMBG;    
+    private String personJMBG; 
+    
+    // za poruke
+    private String errorMessage;
+    private String prepareMessage;
+    
+    private MOWwait selectedWait;
+    
+    private static int newPerson;
+    
+    private final Connection connection = Wdb.getDbConnection(this.currentUser, this.currentPwd, this.currentHost);
+    
+    private Map<String, Object> reasons = MOWreason.reasonMap(connection);
+    
+    /**
+     * Lista kreiranih cekanja(var wait)
+     */
+    private ArrayList<MOWwait> standby;
+    
+    /**
+     * Iniciraj listu da moze da prihvati podatke.
+     */
+    @PostConstruct
+    void init(){
+        this.standby = new ArrayList<>();
+    }
+
+    public MOWwaitBean() {
+    }
+
+    public int getWaitId() {
+        return waitId;
+    }
+
+    public void setWaitId(int waitId) {
+        this.waitId = waitId;
+    }
+
+    public Timestamp getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(Timestamp waitTime) {
+        this.waitTime = waitTime;
+    }
+
+    public int getWaitReason() {
+        return waitReason;
+    }
+
+    public void setWaitReason(int waitReason) {
+        this.waitReason = waitReason;
+    }
+
+    public int getWaitPerson() {
+        return waitPerson;
+    }
+
+    public void setWaitPerson(int waitPerson) {
+        this.waitPerson = waitPerson;
+    }
+
+    public String getReasonName() {
+        return reasonName;
+    }
+
+    public void setReasonName(String reasonName) {
+        this.reasonName = reasonName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonJMBG() {
+        return personJMBG;
+    }
+
+    public void setPersonJMBG(String personJMBG) {
+        this.personJMBG = personJMBG;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getPrepareMessage() {
+        return prepareMessage;
+    }
+
+    public void setPrepareMessage(String prepareMessage) {
+        this.prepareMessage = prepareMessage;
+    }
+
+    public MOWwait getSelectedWait() {
+        return selectedWait;
+    }
+
+    public void setSelectedWait(MOWwait selectedWait) {
+        this.selectedWait = selectedWait;
+    }
+
+    public static int getNewPerson() {
+        return newPerson;
+    }
+
+    public static void setNewPerson(int newPerson) {
+        MOWwaitBean.newPerson = newPerson;
+    }
+
+    public Map<String, Object> getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(Map<String, Object> reasons) {
+        this.reasons = reasons;
+    }
+
+    public ArrayList<MOWwait> getStandby() {
+        return standby;
+    }
+
+    public void setStandby(ArrayList<MOWwait> standby) {
+        this.standby = standby;
+    }
+    
+    
 }

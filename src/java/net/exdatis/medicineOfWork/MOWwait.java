@@ -35,7 +35,7 @@ public class MOWwait implements CRUDdata{
     private boolean canEdit;
     
     // iz pogleda
-    private String roomName;
+    private String reasonName;
     private String personName;
     private String personJMBG;
 
@@ -111,12 +111,12 @@ public class MOWwait implements CRUDdata{
         this.canEdit = canEdit;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getReasonName() {
+        return reasonName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setReasonName(String reasonName) {
+        this.reasonName = reasonName;
     }
 
     public String getPersonName() {
