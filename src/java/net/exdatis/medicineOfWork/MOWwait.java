@@ -17,12 +17,15 @@
  */
 package net.exdatis.medicineOfWork;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import net.exdatis.wdb.CRUDdata;
 
 /**
- * Cekanje za medicinu rada.
+ * Cekanje za medicinu rada. Ima gresaka.
  * @author morar
  */
 public class MOWwait implements CRUDdata{
@@ -135,20 +138,49 @@ public class MOWwait implements CRUDdata{
         this.personJMBG = personJMBG;
     }
     
-
+    public static ArrayList<MOWwait> getTodayWait(Connection connection){
+        // add logic
+    }
     @Override
     public String insertRec(Connection connection) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String success = "no";
+        String sql = "{call moww_add(?, ?, ?)}";
+        
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            cst.setInt(1, this.getWaitReason());
+            cst.setInt(2, this.getWaitPerson());
+            cst.registerOutParameter(3, java.sql.Types.INTEGER);
+            boolean added = cst.execute();
+            this.setWaitId(cst.getInt(3));
+        }catch(SQLException e){
+            success = e.getMessage();
+            return success;
+        }
+        
+        success = "yes";
+        return success;
     }
 
     @Override
     public String updateRec(Connection connection) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To changewaitId body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String deleteRec(Connection connection) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String success = "no";
+        String sql = "{call moww_delete(?)}";
+        
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            cst.setInt(1, this.getWaitId());
+            boolean deleted = cst.execute();
+        }catch(SQLException e){
+            success = e.getMessage();
+            return success;
+        }
+        
+        success = "yes";
+        return success;
     }
     
     
