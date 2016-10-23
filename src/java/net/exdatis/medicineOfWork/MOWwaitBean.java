@@ -185,5 +185,35 @@ public class MOWwaitBean implements Serializable{
         this.standby = standby;
     }
     
+    public String addWait(){
+        this.setErrorMessage(null);
+        if(newPerson == 0){
+            String msg = "Morate najpre izabrati pacijenta za prijavu! Nakon toga selektujte razlog dolaska.";
+            this.setErrorMessage(msg);
+            return null;
+        }
+        
+        // kreiraj novu instancu klase i promeni stanje.
+        MOWwait m = new MOWwait();
+        m.setWaitReason(waitReason);
+        m.setWaitPerson(newPerson);
+        String msg = m.insertRec(connection);
+        if(msg.equalsIgnoreCase("yes")){
+            MOWwait newWait = MOWwait.getWaitById(connection, m.getWaitId());
+            standby.add(m);
+            return null;
+        }
+        
+        // else error
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
+        return null;
+    }
     
+    public String refreshWait(){
+        this.setErrorMessage(null);
+        this.setPrepareMessage(null);
+        standby = MOWwait.getTodayWait(connection);
+        return null;
+    }
 }

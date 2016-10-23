@@ -19,6 +19,8 @@ package net.exdatis.medicineOfWork;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -139,8 +141,55 @@ public class MOWwait implements CRUDdata{
     }
     
     public static ArrayList<MOWwait> getTodayWait(Connection connection){
-        // add logic
+        ArrayList<MOWwait> mwl = new ArrayList<>();
+        String sql = "{call moww_today()}";
+        
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            ResultSet rs = cst.executeQuery();
+            while(rs.next()){
+                MOWwait w = new MOWwait();
+                w.setWaitId(rs.getInt(1));
+                w.setWaitTime(rs.getTimestamp(2));
+                w.setWaitReason(rs.getInt(3));
+                w.setWaitPerson(rs.getInt(4));
+                w.setCurrDbUser(rs.getString(5));
+                w.setReasonName(rs.getString(6));
+                w.setPersonName(rs.getString(7));
+                w.setPersonJMBG(rs.getString(8));
+                mwl.add(w);
+            }
+        }catch(SQLException e){
+            System.out.println("Today MOWW: " + e.getMessage());
+            return null;
+        }
+        
+        return mwl;
     }
+    
+    public static MOWwait getWaitById(Connection connection, int currId){
+        String sql = "Select * from moww_view Where moww_id = ?";
+        MOWwait w = new MOWwait();
+        try(PreparedStatement pst = connection.prepareStatement(sql);){
+            pst.setInt(1, currId);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                w.setWaitId(rs.getInt(1));
+                w.setWaitTime(rs.getTimestamp(2));
+                w.setWaitReason(rs.getInt(3));
+                w.setWaitPerson(rs.getInt(4));
+                w.setCurrDbUser(rs.getString(5));
+                w.setReasonName(rs.getString(6));
+                w.setPersonName(rs.getString(7));
+                w.setPersonJMBG(rs.getString(8));
+            }
+        }catch(SQLException e){
+            System.out.println("Wait by ID: " + e.getMessage());
+            return null;
+        }
+        
+        return w;
+    }
+    
     @Override
     public String insertRec(Connection connection) {
         String success = "no";
