@@ -243,7 +243,14 @@ public class MOWwaitBean implements Serializable{
     public void setThisRooms(ArrayList<MOWwaitRooms> thisRooms) {
         this.thisRooms = thisRooms;
     }
-    
+
+    public Map<String, Object> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Map<String, Object> rooms) {
+        this.rooms = rooms;
+    }
     
     
     public String addWait(){

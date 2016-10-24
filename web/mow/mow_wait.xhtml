@@ -238,15 +238,25 @@
                         personNameValue="#{wait.personName}"
                         personJmbgLbl="JMBG"
                         personJmbgValue="#{wait.personJMBG}"
-                        btnDeleteLabel="Izbaci"
+                        btnDeleteLabel="Linija pregleda"
                         btnDelete="#{mowBean.deleteWait(wait)}"
                         cannotEdit="#{not wait.canEdit}"
                         canEdit="#{wait.canEdit}">
                     </tpw:mow_wait_tbl>
-
-                    <h3>Redosled pregleda </h3>
-                    <hr></hr>
                 </div>
+                    <div align="left" class="divFormManyBig">
+                        <h3>Redosled pregleda </h3>
+                        <hr></hr>
+                        <tpw:mow_wait_rooms_form
+                            roomLabel="Kontrolni pregled"
+                            roomValue="#{mowBean.mowwRoomRoomId}"
+                            roomValues="#{mowBean.rooms}"
+                            btnSubmitLabel="Prijavi pregled"
+                            btnSubmit="#{mowBean.addWait()}">
+                        </tpw:mow_wait_rooms_form>
+                        <hr></hr>
+                    </div>
+
             </ui:define>
             <ui:define name="footer">
                 
