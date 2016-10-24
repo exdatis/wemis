@@ -57,6 +57,9 @@ public class MOWwaitBean implements Serializable{
     private String errorMessage;
     private String prepareMessage;
     
+    private String errorMessageRoom;
+    private String prepareMessageRoom;
+    
     private MOWwait selectedWait;
     
     private static int newPerson;
@@ -251,6 +254,23 @@ public class MOWwaitBean implements Serializable{
     public void setRooms(Map<String, Object> rooms) {
         this.rooms = rooms;
     }
+
+    public String getErrorMessageRoom() {
+        return errorMessageRoom;
+    }
+
+    public void setErrorMessageRoom(String errorMessageRoom) {
+        this.errorMessageRoom = errorMessageRoom;
+    }
+
+    public String getPrepareMessageRoom() {
+        return prepareMessageRoom;
+    }
+
+    public void setPrepareMessageRoom(String prepareMessageRoom) {
+        this.prepareMessageRoom = prepareMessageRoom;
+    }
+    
     
     
     public String addWait(){

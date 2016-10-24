@@ -24,7 +24,7 @@
                             <h:outputText class="lblError"  value="#{personBean.errorMessage}"></h:outputText>
 
                         </div>
-                       
+
                     </h:form> 
                     <h3>Pretraga i unos novih pacijenata - korisnika</h3>
                     <hr></hr>
@@ -45,7 +45,7 @@
                                 </h:commandButton>
                             </h:panelGrid>
                         </div>
-                       
+
                     </h:form>
                     <hr></hr>
                     <tp:personForm
@@ -140,7 +140,7 @@
                                 </h:inputText>
                                 <h:outputText value="#{person.personHealthCard}" rendered="#{not person.canEdit}"></h:outputText>
                             </h:column>
-                            
+
                             <h:column>
                                 <f:facet name="header">DocID</f:facet>
                                 <h:inputText id="fieldOldDoc" value="#{person.personDocument}" size="20" rendered="#{person.canEdit}">
@@ -211,7 +211,7 @@
                     <div align ="center" class="divPrepareMsg">
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
-                    
+
                     <h3>Prijava pregleda po osnovu zahteva </h3>
                     <hr></hr>
                     <tpw:wait_form_mow
@@ -244,22 +244,34 @@
                         canEdit="#{wait.canEdit}">
                     </tpw:mow_wait_tbl>
                 </div>
-                    <div align="left" class="divFormManyBig">
-                        <h3>Redosled pregleda </h3>
-                        <hr></hr>
-                        <tpw:mow_wait_rooms_form
-                            roomLabel="Kontrolni pregled"
-                            roomValue="#{mowBean.mowwRoomRoomId}"
-                            roomValues="#{mowBean.rooms}"
-                            btnSubmitLabel="Prijavi pregled"
-                            btnSubmit="#{mowBean.addWait()}">
-                        </tpw:mow_wait_rooms_form>
-                        <hr></hr>
-                    </div>
+                <!-- messages -->
+                <div align="center" class="divErrorMsg">
+                    <p:messages autoUpdate="true"></p:messages>
+                    <h:outputText class="lblError"  value="#{mowBean.errorMessageRoom}"></h:outputText>
+
+                </div>
+                <!-- messages -->
+                <div align="center" class="divPrepareMsg">
+                    <p:messages autoUpdate="true"></p:messages>
+                    <h:outputText class="lblError"  value="#{mowBean.prepareMessageRoom}"></h:outputText>
+
+                </div>
+                <div align="left" class="divFormManyBig">
+                    <h3>Redosled pregleda </h3>
+                    <hr></hr>
+                    <tpw:mow_wait_rooms_form
+                        roomLabel="Kontrolni pregled"
+                        roomValue="#{mowBean.mowwRoomRoomId}"
+                        roomValues="#{mowBean.rooms}"
+                        btnSubmitLabel="Prijavi pregled"
+                        btnSubmit="#{mowBean.addWait()}">
+                    </tpw:mow_wait_rooms_form>
+                    <hr></hr>
+                </div>
 
             </ui:define>
             <ui:define name="footer">
-                
+
             </ui:define>
         </ui:composition>
     </h:body>
