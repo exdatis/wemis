@@ -61,9 +61,19 @@ public class MOWwaitBean implements Serializable{
     
     private static int newPerson;
     
+    // za sobe-preglede koje osoba ceka
+    private int mowwRoomId;
+    private int mowwRoomRoomId;
+    private int mowwRoomWaitId;
+    // iz pogleda
+    private String mowwRoomName;
+    private MOWwaitRooms currentRoom;
+    private ArrayList<MOWwaitRooms> thisRooms;
+    
     private final Connection connection = Wdb.getDbConnection(this.currentUser, this.currentPwd, this.currentHost);
     
     private Map<String, Object> reasons = MOWreason.reasonMap(connection);
+    private Map<String, Object> rooms = MOWwaitRooms.roomMap(connection);
     
     /**
      * Lista kreiranih cekanja(var wait)
@@ -76,6 +86,7 @@ public class MOWwaitBean implements Serializable{
     @PostConstruct
     void init(){
         this.standby = new ArrayList<>();
+        this.thisRooms = new ArrayList<>();
     }
 
     public MOWwaitBean() {
@@ -184,6 +195,56 @@ public class MOWwaitBean implements Serializable{
     public void setStandby(ArrayList<MOWwait> standby) {
         this.standby = standby;
     }
+
+    public int getMowwRoomId() {
+        return mowwRoomId;
+    }
+
+    public void setMowwRoomId(int mowwRoomId) {
+        this.mowwRoomId = mowwRoomId;
+    }
+
+    public int getMowwRoomRoomId() {
+        return mowwRoomRoomId;
+    }
+
+    public void setMowwRoomRoomId(int mowwRoomRoomId) {
+        this.mowwRoomRoomId = mowwRoomRoomId;
+    }
+
+    public int getMowwRoomWaitId() {
+        return mowwRoomWaitId;
+    }
+
+    public void setMowwRoomWaitId(int mowwRoomWaitId) {
+        this.mowwRoomWaitId = mowwRoomWaitId;
+    }
+
+    public String getMowwRoomName() {
+        return mowwRoomName;
+    }
+
+    public void setMowwRoomName(String mowwRoomName) {
+        this.mowwRoomName = mowwRoomName;
+    }
+
+    public MOWwaitRooms getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(MOWwaitRooms currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public ArrayList<MOWwaitRooms> getThisRooms() {
+        return thisRooms;
+    }
+
+    public void setThisRooms(ArrayList<MOWwaitRooms> thisRooms) {
+        this.thisRooms = thisRooms;
+    }
+    
+    
     
     public String addWait(){
         this.setErrorMessage(null);
@@ -214,6 +275,33 @@ public class MOWwaitBean implements Serializable{
         this.setErrorMessage(null);
         this.setPrepareMessage(null);
         standby = MOWwait.getTodayWait(connection);
+        return null;
+    }
+    
+    public String addRoom(){
+        return null;
+    }
+    
+    public String deleteRoom(MOWwaitRooms r){
+        this.setErrorMessage(null);
+        // proveri status pre slanja
+       /* if(w.getAwStatus() > 1){
+            String msg = "Error: Primljeni i otpušteni pacijenti nemogu se brisati.";
+            this.setErrorMessage(msg);
+            return null;
+        } */
+        String msg = r.deleteRec(connection);
+        if(msg.equalsIgnoreCase("yes")){
+            this.rooms.remove(r);
+            return null;
+        }
+        // else
+        msg = "Error: " + msg;
+        this.setErrorMessage(msg);
+        return null;
+    }
+    
+    public String refreshRooms(){
         return null;
     }
 }
