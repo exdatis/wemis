@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:tp="http://java.sun.com/jsf/composite/components/personForm" 
+      xmlns:tpw="http://java.sun.com/jsf/composite/components/mow_wait_form"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-color: gainsboro;">
+        <ui:composition template="/templates/ambulanceMenu/common.xhtml">
+            <ui:define name="contents">
+
+                <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet> 
+
+                <div align="left" class="divForm">
+                    <h:form>
+                        <!-- messages -->
+                        <div align="center" class="divErrorMsg">
+                            <p:messages autoUpdate="true"></p:messages>
+                            <h:outputText class="lblError"  value="#{personBean.errorMessage}"></h:outputText>
+
+                        </div>
+                       
+                    </h:form> 
+                    <h3>Pretraga i unos novih pacijenata - korisnika</h3>
+                    <hr></hr>
+                    <h:form>
+                        <div align="left" class="divForm" >
+                            <h:panelGrid columns="3" border="0" bgcolor="silver">
+                                <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 215px">
+                                    <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
+                                </h:selectOneMenu>  
+
+                                <h:inputText value="#{personBean.searchText}" size="50" autocomplete="off"></h:inputText>
+                                <h:commandButton action="#{personBean.searchPerson()}" 
+                                                 value="Pronadji po tipu pretrage" 
+                                                 title="Pronadji po zadatom argumentu(Alt+Shift+P)" 
+                                                 accesskey="p"
+                                                 style="cursor: pointer">
+
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                       
+                    </h:form>
+                    <hr></hr>
+                    <tp:personForm
+                        codeLabel="Šifra"
+                        codeValue="#{personBean.personCode}"
+                        nameLabel="Prezime i ime *"
+                        nameValue="#{personBean.personName}"
+                        lboLabel="LBO"
+                        lboValue="#{personBean.personLBO}"
+                        jmbgLabel="JMBG *"
+                        jmbgValue="#{personBean.personJMBG}"
+                        healthCardLabel="Zdravstvena"
+                        healthCardValue="#{personBean.personHealthCard}"
+                        docLabel="DocumentID"
+                        docValue="#{personBean.personDocument}"
+                        locationLabel="Ispostava *"
+                        locationValue="#{personBean.personSubstation}"
+                        locationValues="#{personBean.locations}"
+                        btnResetLabel="Novi zapis"
+                        btnReset="#{personBean.resetValues()}"
+                        btnSubmitLabel="Sačuvaj zapis"
+                        btnSubmit="#{personBean.addPerson()}"
+                        >
+                    </tp:personForm>
+                </div>
+
+                <hr></hr>
+
+                <div align="left" class="divSmallTable">
+                    <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
+                    <p:messages autoUpdate="true"></p:messages>
+                    <h:form>
+                        <h:dataTable value="#{personBean.persons}" var="person"
+                                     cellpadding="5"
+                                     styleClass="Tbl"
+                                     headerClass="TblHeader"
+                                     rowClasses="TblOddRow, TblEvenRowm"
+                                     columnClasses=
+                                     "TblColLeft,
+                                     TblColLeft,
+                                     TblColLeft, 
+                                     TblColLeft,
+                                     TblColLeft,
+                                     TblColLeft, 
+                                     TblColLeft,
+                                     TblColRight, 
+                                     TblColLeft,
+                                     TblColLeft"
+                                     >
+                            <h:column>
+                                <f:facet name="header">ID</f:facet>
+                                <h:outputText value="#{person.personId}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Šifra</f:facet>
+                                <h:inputText id="fieldOldSign" value="#{person.personCode}" size="5" rendered="#{person.canEdit}" label="Šifra">
+                                    <f:validateLength minimum="1" maximum="10" ></f:validateLength>
+                                    <h:message for="fieldOldSign"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personCode}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Prezime i ime</f:facet>
+                                <h:inputText id="fieldOldName" value="#{person.personName}" size="45" rendered="#{person.canEdit}" label="Prezime i ime">
+                                    <f:validateLength minimum="1" maximum="70" ></f:validateLength>
+                                    <h:message for="fieldOldName"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personName}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">LBO</f:facet>
+                                <h:inputText id="fieldOldLBO" value="#{person.personLBO}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personLBO}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">JMBG</f:facet>
+                                <h:inputText id="fieldOldJMBG" value="#{person.personJMBG}" size="20" rendered="#{person.canEdit}" label="JMBG">
+                                    <f:validateLength minimum="1" maximum="30" ></f:validateLength>
+                                    <h:message for="fieldOldJMBG"></h:message>
+                                </h:inputText>
+                                <h:outputText value="#{person.personJMBG}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Zdravstvena</f:facet>
+                                <h:inputText id="fieldOldHC" value="#{person.personHealthCard}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personHealthCard}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">DocID</f:facet>
+                                <h:inputText id="fieldOldDoc" value="#{person.personDocument}" size="20" rendered="#{person.canEdit}">
+                                </h:inputText>
+                                <h:outputText value="#{person.personDocument}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>                            
+
+                            <h:column>
+                                <f:facet name="header">Ispostava</f:facet>
+                                <h:selectOneMenu value="#{person.personSubstation}" style="width: 110px" rendered="#{person.canEdit}">
+                                    <f:selectItems value="#{personBean.locations}">
+                                    </f:selectItems>
+                                </h:selectOneMenu>
+                                <h:outputText value="#{person.locationName}" rendered="#{not person.canEdit}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton class="cmdBtn"
+                                                 action="#{personBean.editPerson(person)}"
+                                                 rendered="#{not person.canEdit}"
+                                                 value="Izmeni"
+                                                 title="Izmeni selektovani red">
+                                </h:commandButton>
+                            </h:column>
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton onclick="if (!confirm('Sigurno brišete zapis?'))
+                                            return false"
+                                                 class="cmdBtn"
+                                                 action="#{personBean.deletePerson(person)}"
+                                                 rendered="#{not person.canEdit}"
+                                                 value="Obriši"
+                                                 title="Trajno brisanje podataka">
+                                </h:commandButton>                                <br/>                               
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name ="header"></f:facet>
+                                <h:commandButton class="cmdBtn"
+                                                 action="#{personBean.setPersonForWait(person)}"
+                                                 rendered="#{not person.canEdit}"
+                                                 value="Primi pacijenta"
+                                                 title="Postavi u čekaonicu">
+                                </h:commandButton>
+                            </h:column>
+
+                        </h:dataTable>
+                        <br/>
+                        <h:commandButton class="cmdBtn" 
+                                         value="Sačuvaj izmene" 
+                                         action="#{personBean.updatePerson()}"
+                                         accesskey="i"
+                                         title="Snimi u bazu podataka(Alt+Shift+I)">
+                        </h:commandButton>
+                    </h:form>
+
+                </div>
+
+                <!-- messages -->
+                <div align="center" class="divErrorMsg">
+                    <p:messages autoUpdate="true"></p:messages>
+                    <h:outputText class="lblError"  value="#{mowBean.errorMessage}"></h:outputText>
+
+                </div>
+
+                <div align ="left" class="divFormManyBig">
+                    <div align ="center" class="divPrepareMsg">
+                        <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
+                    </div>
+                    
+                    <h3>Prijava pregleda po osnovu zahteva </h3>
+                    <hr></hr>
+                    <tpw:wait_form_mow
+                        roomLabel="Zahtevano uverenje"
+                        roomValue="#{mowBean.waitReason}"
+                        roomValues="#{mowBean.reasons}"
+                        btnSubmitLabel="Prijavi stranku"
+                        btnSubmit="#{mowBean.addWait()}">
+                    </tpw:wait_form_mow>
+                    <hr></hr>
+                    <!-- tblWait -->
+                    <tpw:mow_wait_tbl
+                        refreshLbl="Refresh"
+                        refreshAction="#{mowBean.refreshWait()}"
+                        tblValue="#{mowBean.standby}"
+                        idLbl="ID"
+                        idValue="#{wait.waitId}"
+                        timeLbl="Vreme"
+                        timeValue="#{wait.waitTime}"
+                        roomLbl="Čekaonica"
+                        roomValue="#{wait.reasonName}"
+
+                        personNameLbl="Stranka"
+                        personNameValue="#{wait.personName}"
+                        personJmbgLbl="JMBG"
+                        personJmbgValue="#{wait.personJMBG}"
+                        btnDeleteLabel="Izbaci"
+                        btnDelete="#{mowBean.deleteWait(wait)}"
+                        cannotEdit="#{not wait.canEdit}"
+                        canEdit="#{wait.canEdit}">
+                    </tpw:mow_wait_tbl>
+
+                    <h3>Redosled pregleda </h3>
+                    <hr></hr>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

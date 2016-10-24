@@ -200,7 +200,7 @@ public class MOWwaitBean implements Serializable{
         String msg = m.insertRec(connection);
         if(msg.equalsIgnoreCase("yes")){
             MOWwait newWait = MOWwait.getWaitById(connection, m.getWaitId());
-            standby.add(m);
+            standby.add(newWait);
             return null;
         }
         

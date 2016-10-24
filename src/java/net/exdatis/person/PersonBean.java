@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.location.Location;
+import net.exdatis.medicineOfWork.MOWwaitBean;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.wdb.Wdb;
 import personWait.AmbulanceWaitBean;
@@ -348,13 +349,16 @@ public class PersonBean implements Serializable{
     public void resetPersonForWait(){
         // reset newPatient from AmbulanceWaitBean (static method)
         this.clearMessages();
-        AmbulanceWaitBean.setNewPerson(0);       
+        // ovde sam dodao sve bean-ove koji koriste ovaj bean(radi)
+        AmbulanceWaitBean.setNewPerson(0);  
+        MOWwaitBean.setNewPerson(0);
     }
     
     public String setPersonForWait(Person p){
         // set newPatient from AmbulanceWaitBean (static method)
         this.clearMessages();
-        AmbulanceWaitBean.setNewPerson(p.getPersonId());  
+        AmbulanceWaitBean.setNewPerson(p.getPersonId()); 
+        MOWwaitBean.setNewPerson(p.getPersonId());
         String prepareMsg = String.format("Selektovan pacijent ID: %d - %s. Popunite ostale podatke i snimite prijavu.", p.getPersonId(), p.getPersonName());
         this.setNewPatientMsg(prepareMsg);
         return null;

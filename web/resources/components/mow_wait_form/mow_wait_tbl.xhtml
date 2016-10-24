@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="refreshLbl"></composite:attribute>
+        <composite:attribute name="refreshAction" method-signature="java.lang.String refreshWait()" ></composite:attribute>
+        <composite:attribute name="canEdit"></composite:attribute>
+        <composite:attribute name="cannotEdit"></composite:attribute>
+        <composite:attribute name="tblValue"></composite:attribute>
+        <composite:attribute name="idLbl"></composite:attribute>
+        <composite:attribute name="idValue"></composite:attribute>
+        <composite:attribute name="timeLbl"></composite:attribute>
+        <composite:attribute name="timeValue"></composite:attribute>
+        <composite:attribute name="roomLbl"></composite:attribute>
+        <composite:attribute name="roomValue"></composite:attribute>
+ 
+        <composite:attribute name="personNameLbl"></composite:attribute>
+        <composite:attribute name="personNameValue"></composite:attribute>
+        <composite:attribute name="personJmbgLbl"></composite:attribute>
+        <composite:attribute name="personJmbgValue"></composite:attribute>
+        <composite:attribute name="btnDeleteLabel"></composite:attribute>
+        <composite:attribute
+            name="btnDelete"
+            method-signature="java.lang.String deleteWait()">
+        </composite:attribute>
+    </composite:interface>
+    <composite:implementation>
+        <h:form>
+            <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
+            
+            <h:dataTable value="#{cc.attrs.tblValue}" var="wait"
+                         cellpadding="5"
+                         styleClass="Tbl"
+                         headerClass="TblHeader"
+                         rowClasses="TblOddRow, TblEvenRowm"
+                         columnClasses=
+                         "TblColLeft,
+                                     TblColLeft,
+                                     TblColLeft, 
+                                     TblColLeft,
+                                     TblColLeft">
+
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.idLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.idValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.timeLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.timeValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.roomLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.roomValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.personNameLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.personNameValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">#{cc.attrs.personJmbgLbl}</f:facet>
+                    <h:outputText value="#{cc.attrs.personJmbgValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
+                </h:column>
+
+                <h:column>
+                    <h:commandButton onclick="if (! confirm('Sigurno brišete zapis?')) return false"
+                                     class="cmdBtn"
+                                     action="#{cc.attrs.btnDelete}"
+                                     rendered="#{cc.attrs.cannotEdit}"
+                                     value="#{cc.attrs.btnDeleteLabel}"
+                                     title="Trajno brisanje podataka">
+                    </h:commandButton>       
+                </h:column>
+            </h:dataTable>
+            <h:commandLink value="#{cc.attrs.refreshLbl}" action="#{cc.attrs.refreshAction}" rendered="#{cc.attrs.cannotEdit}"></h:commandLink>
+        </h:form>
+    </composite:implementation>
+</html>
+
