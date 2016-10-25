@@ -138,6 +138,7 @@ and open the template in the editor.
 
 .lblError{
     color: yellow;
+    background-color: brown;
     font-family: Tahoma, Arial;
     /* font-weight: bold; */
     display: block;

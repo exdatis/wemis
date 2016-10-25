@@ -289,6 +289,12 @@ public class MOWwaitBean implements Serializable{
         if(msg.equalsIgnoreCase("yes")){
             MOWwait newWait = MOWwait.getWaitById(connection, m.getWaitId());
             standby.add(newWait);
+            this.setSelectedWait(newWait);
+            // poruka za putanju pregleda
+            String preparedPatient = "Kontrolni pregledi za : " + newWait.getPersonName() + " " + newWait.getPersonJMBG();
+            this.setPrepareMessageRoom(preparedPatient);
+            // ovde treba izvrsiti refresh podataka(rooms)
+            this.refreshRooms();
             return null;
         }
         
@@ -302,10 +308,32 @@ public class MOWwaitBean implements Serializable{
         this.setErrorMessage(null);
         this.setPrepareMessage(null);
         standby = MOWwait.getTodayWait(connection);
+        this.setSelectedWait(null);
         return null;
     }
     
     public String addRoom(){
+        this.setErrorMessage(null);
+        if(this.selectedWait == null){
+            String msg = "Morate najpre prijaviti stranku i razlog dolaska a nakon toga redosled pregleda.";
+            this.setErrorMessageRoom(msg);
+            return null;
+        }
+        
+        // kreiraj novu instancu klase i promeni stanje.
+        MOWwaitRooms r = new MOWwaitRooms();
+        r.setMowwRoomWaitId(this.getWaitId());
+        r.setMowwRoomRoomId(this.getMowwRoomRoomId());
+        String msg = r.insertRec(connection);
+        if(msg.equalsIgnoreCase("yes")){
+            MOWwaitRooms newRoom = MOWwaitRooms.getRoomById(connection, r.getMowwRoomId());
+            this.thisRooms.add(newRoom);
+            return null;
+        }
+        
+        // else error
+        msg = "Error: " + msg;
+        this.setErrorMessageRoom(msg);
         return null;
     }
     
@@ -329,6 +357,7 @@ public class MOWwaitBean implements Serializable{
     }
     
     public String refreshRooms(){
+        this.thisRooms = MOWwaitRooms.getCurrentRooms(connection, waitId);
         return null;
     }
 }
