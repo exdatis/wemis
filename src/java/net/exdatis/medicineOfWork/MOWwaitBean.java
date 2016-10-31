@@ -179,6 +179,7 @@ public class MOWwaitBean implements Serializable{
         this.setSelectedWait(selectedWait);
         String preparedPatient = "Kontrolni pregledi za : " + selectedWait.getPersonName() + " " + selectedWait.getPersonJMBG() + " ID prijave: " + selectedWait.getWaitId();
         this.setPrepareMessageRoom(preparedPatient);
+        this.setErrorMessageRoom(null);
         this.refreshRooms();
         
         //return null; mozda moze i sa void !!! moze i nije potrebno za osvezenje podataka!!! bitno
@@ -333,9 +334,11 @@ public class MOWwaitBean implements Serializable{
         MOWwaitRooms r = new MOWwaitRooms();
         r.setMowwRoomWaitId(selectedWait.getWaitId());
         // debug current wait_id
-        System.out.println("Current wait_id: " + selectedWait.getWaitId());
+        //System.out.println("Current wait_id: " + selectedWait.getWaitId());
         r.setMowwRoomRoomId(this.getMowwRoomRoomId());
         String msg = r.insertRec(connection);
+        //debug
+        //System.out.println("Vractio je ovu poruku ............................................." + msg);
         if(msg.equalsIgnoreCase("yes")){
             MOWwaitRooms newRoom = MOWwaitRooms.getRoomById(connection, r.getMowwRoomId());
             this.thisRooms.add(newRoom);
