@@ -174,6 +174,15 @@ public class MOWwaitBean implements Serializable{
     public void setSelectedWait(MOWwait selectedWait) {
         this.selectedWait = selectedWait;
     }
+    
+    public void updateSelectedWait(MOWwait selectedWait){
+        this.setSelectedWait(selectedWait);
+        String preparedPatient = "Kontrolni pregledi za : " + selectedWait.getPersonName() + " " + selectedWait.getPersonJMBG() + " ID prijave: " + selectedWait.getWaitId();
+        this.setPrepareMessageRoom(preparedPatient);
+        this.refreshRooms();
+        
+        //return null; mozda moze i sa void !!! moze i nije potrebno za osvezenje podataka!!! bitno
+    }
 
     public static int getNewPerson() {
         return newPerson;
@@ -291,10 +300,10 @@ public class MOWwaitBean implements Serializable{
             standby.add(newWait);
             this.setSelectedWait(newWait);
             // poruka za putanju pregleda
-            String preparedPatient = "Kontrolni pregledi za : " + newWait.getPersonName() + " " + newWait.getPersonJMBG();
+            String preparedPatient = "Kontrolni pregledi za : " + selectedWait.getPersonName() + " " + selectedWait.getPersonJMBG() + " ID prijave: " + selectedWait.getWaitId();
             this.setPrepareMessageRoom(preparedPatient);
             // ovde treba izvrsiti refresh podataka(rooms)
-            this.refreshRooms();
+            this.refreshRooms(); // ovo pravi problem /* moze biti zbog pogresnog upita */
             return null;
         }
         
@@ -322,7 +331,9 @@ public class MOWwaitBean implements Serializable{
         
         // kreiraj novu instancu klase i promeni stanje.
         MOWwaitRooms r = new MOWwaitRooms();
-        r.setMowwRoomWaitId(this.getWaitId());
+        r.setMowwRoomWaitId(selectedWait.getWaitId());
+        // debug current wait_id
+        System.out.println("Current wait_id: " + selectedWait.getWaitId());
         r.setMowwRoomRoomId(this.getMowwRoomRoomId());
         String msg = r.insertRec(connection);
         if(msg.equalsIgnoreCase("yes")){
@@ -347,7 +358,7 @@ public class MOWwaitBean implements Serializable{
         } */
         String msg = r.deleteRec(connection);
         if(msg.equalsIgnoreCase("yes")){
-            this.rooms.remove(r);
+            this.thisRooms.remove(r);
             return null;
         }
         // else
@@ -356,8 +367,8 @@ public class MOWwaitBean implements Serializable{
         return null;
     }
     
-    public String refreshRooms(){
-        this.thisRooms = MOWwaitRooms.getCurrentRooms(connection, waitId);
-        return null;
+    public void refreshRooms(){
+        this.thisRooms = MOWwaitRooms.getCurrentRooms(connection, selectedWait.getWaitId());
+        //return null; nema potrebe pknovo pozivati stranicu
     }
 }

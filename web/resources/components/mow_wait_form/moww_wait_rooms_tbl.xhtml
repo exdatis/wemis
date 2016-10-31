@@ -6,33 +6,24 @@
       xmlns:composite="http://java.sun.com/jsf/composite">
 
     <composite:interface>
-        <composite:attribute name="refreshLbl"></composite:attribute>
-        <composite:attribute name="refreshAction" method-signature="java.lang.String refreshWait()" ></composite:attribute>
         <composite:attribute name="canEdit"></composite:attribute>
         <composite:attribute name="cannotEdit"></composite:attribute>
         <composite:attribute name="tblValue"></composite:attribute>
         <composite:attribute name="idLbl"></composite:attribute>
         <composite:attribute name="idValue"></composite:attribute>
-        <composite:attribute name="timeLbl"></composite:attribute>
-        <composite:attribute name="timeValue"></composite:attribute>
         <composite:attribute name="roomLbl"></composite:attribute>
         <composite:attribute name="roomValue"></composite:attribute>
- 
-        <composite:attribute name="personNameLbl"></composite:attribute>
-        <composite:attribute name="personNameValue"></composite:attribute>
-        <composite:attribute name="personJmbgLbl"></composite:attribute>
-        <composite:attribute name="personJmbgValue"></composite:attribute>
         <composite:attribute name="btnDeleteLabel"></composite:attribute>
         <composite:attribute
             name="btnDelete"
-            method-signature="java.lang.String updateSelectedWait()">
+            method-signature="java.lang.String deleteRoom()">
         </composite:attribute>
     </composite:interface>
     <composite:implementation>
         <h:form>
             <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
             
-            <h:dataTable value="#{cc.attrs.tblValue}" var="wait"
+            <h:dataTable value="#{cc.attrs.tblValue}" var="currentRooms"
                          cellpadding="5"
                          styleClass="Tbl"
                          headerClass="TblHeader"
@@ -40,18 +31,12 @@
                          columnClasses=
                          "TblColLeft,
                                      TblColLeft,
-                                     TblColLeft, 
                                      TblColLeft,
-                                     TblColLeft">
+                                     TblColRight">
 
                 <h:column>
                     <f:facet name="header">#{cc.attrs.idLbl}</f:facet>
                     <h:outputText value="#{cc.attrs.idValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">#{cc.attrs.timeLbl}</f:facet>
-                    <h:outputText value="#{cc.attrs.timeValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
                 </h:column>
 
                 <h:column>
@@ -60,26 +45,15 @@
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">#{cc.attrs.personNameLbl}</f:facet>
-                    <h:outputText value="#{cc.attrs.personNameValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">#{cc.attrs.personJmbgLbl}</f:facet>
-                    <h:outputText value="#{cc.attrs.personJmbgValue}" rendered="#{cc.attrs.cannotEdit}"></h:outputText>
-                </h:column>
-
-                <h:column>
-                    <h:commandButton 
+                    <h:commandButton onclick="if (! confirm('Sigurno brišete zapis?')) return false"
                                      class="cmdBtn"
                                      action="#{cc.attrs.btnDelete}"
                                      rendered="#{cc.attrs.cannotEdit}"
                                      value="#{cc.attrs.btnDeleteLabel}"
-                                     title="Linija pregleda">
+                                     title="Trajno brisanje podataka">
                     </h:commandButton>       
                 </h:column>
             </h:dataTable>
-            <h:commandLink value="#{cc.attrs.refreshLbl}" action="#{cc.attrs.refreshAction}" rendered="#{cc.attrs.cannotEdit}"></h:commandLink>
         </h:form>
     </composite:implementation>
 </html>

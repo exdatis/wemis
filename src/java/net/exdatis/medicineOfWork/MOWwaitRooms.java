@@ -39,6 +39,7 @@ public class MOWwaitRooms implements CRUDdata{
     private int mowwRoomId;
     private int mowwRoomRoomId;
     private int mowwRoomWaitId;
+    private boolean canEdit;
     // iz pogleda
     private String mowwRoomName;
 
@@ -74,6 +75,16 @@ public class MOWwaitRooms implements CRUDdata{
         this.mowwRoomWaitId = mowwRoomWaitId;
     }
 
+    public boolean isCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
+    }
+    
+    
+
     public String getMowwRoomName() {
         return mowwRoomName;
     }
@@ -84,7 +95,7 @@ public class MOWwaitRooms implements CRUDdata{
     
     public static ArrayList<MOWwaitRooms> getCurrentRooms(Connection connection, int wait_id) {
         ArrayList<MOWwaitRooms> mwr = new ArrayList<>();
-        String sql = "Select * from mowwr_room Where mowwr_wait = ?";
+        String sql = "Select * from moww_wait_rooms Where mowwr_wait = ?";
 
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setInt(1, wait_id);
