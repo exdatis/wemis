@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Wemis software</title>
+    </h:head>
+    <h:body style="background-color: gainsboro;">
+        <ui:composition template="/templates/ambulanceMenu/common.xhtml">
+            <ui:define name="contents">
+                <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet> 
+                
+                    <h3>Pretraga čekaonice po ordinacijama</h3>
+                    <hr></hr>
+                    <h:form>
+                        <div align="left" class="divForm" >
+                            <h:panelGrid columns="3" border="0" bgcolor="silver">
+                                <h:selectOneMenu value="#{swWait.currentArg}" style="width: 215px">
+                                    <f:selectItems value="#{swWait.argumentTypes}"></f:selectItems>
+                                </h:selectOneMenu>  
+                                <h:commandButton action="#{swWait.searchWait()}" 
+                                                 value="Prikaži stranke u čekaonici" 
+                                                 title="Pronadji po zadatom argumentu(Alt+Shift+P)" 
+                                                 accesskey="p"
+                                                 style="cursor: pointer">
+
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </div>
+                    </h:form>
+                    <!-- tabela -->
+                    <div align="left" style="background-color: silver; overflow: auto">
+                        <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
+                        <p:messages autoUpdate="true"></p:messages>
+                        <h:form>
+                            <h:dataTable value="#{swWait.standby}" var="wait"
+                                         cellpadding="5"
+                                         styleClass="Tbl"
+                                         headerClass="TblHeader"
+                                         rowClasses="TblOddRow, TblEvenRowm"
+                                         columnClasses=
+                                         "TblColLeft,
+                                     TblColLeft,
+                                     TblColLeft, 
+                                     TblColLeft,
+                                     TblColLeft,
+                                     TblColLeft, 
+                                     TblColLeft
+                                     "
+                                         >
+                                <h:column>
+                                    <f:facet name="header">ID</f:facet>
+                                    <h:outputText value="#{wait.swId}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Čekaonica</f:facet>
+                                    <h:outputText value="#{wait.swRoomName}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Prezime i ime</f:facet>
+                                    <h:outputText value="#{wait.swPersonName}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">JMBG</f:facet>
+                                    <h:outputText value="#{wait.swPersonJMBG}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Zahtev</f:facet>
+                                    <h:outputText value="#{wait.swReasonName}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Prijavljen</f:facet>
+                                    <h:outputText value="#{wait.swTime}" rendered="#{not wait.canEdit}"></h:outputText>
+                                </h:column>                            
+
+                                <h:column>
+                                    <f:facet name ="header"></f:facet>
+                                    <h:commandButton class="cmdBtn"
+                                                     action="#"
+                                                     rendered="#{not wait.canEdit}"
+                                                     value="Primi stranku"
+                                                     title="Prijem">
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+
+                    </div>
+                    <!-- kraj tabele -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

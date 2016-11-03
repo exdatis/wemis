@@ -52,8 +52,7 @@ public class ShowMowWaitBean implements Serializable{
     private Timestamp swTime;
     
     // za pretragu
-    private String searchText;
-    private final Map<String, Object> argumentTypes = ShowMowWait.argMap();
+    private Map<String, Object> argumentTypes = ShowMowWait.argMap();
     private int currentArg;
     
     // lista cekanja
@@ -64,6 +63,7 @@ public class ShowMowWaitBean implements Serializable{
     @PostConstruct
     void init(){
         this.standby = new ArrayList<>();
+        this.setCurrentArg(3);
     }
 
     public ShowMowWaitBean() {
@@ -133,14 +133,6 @@ public class ShowMowWaitBean implements Serializable{
         this.swTime = swTime;
     }
 
-    public String getSearchText() {
-        return searchText;
-    }
-
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
-    }
-
     public int getCurrentArg() {
         return currentArg;
     }
@@ -151,6 +143,14 @@ public class ShowMowWaitBean implements Serializable{
 
     public ArrayList<ShowMowWait> getStandby() {
         return standby;
+    }
+
+    public Map<String, Object> getArgumentTypes() {
+        return argumentTypes;
+    }
+    
+    public void setArgumentTypes(Map<String, Object> args){
+        argumentTypes = args;
     }
 
     public void setStandby(ArrayList<ShowMowWait> standby) {
