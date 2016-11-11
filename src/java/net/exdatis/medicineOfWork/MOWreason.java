@@ -83,7 +83,7 @@ public class MOWreason {
      */
     public static Map<String, Object> reasonMap(Connection connection){
         Map<String, Object> m = new LinkedHashMap<>();
-        
+        m.put("Izaberite uverenje", 0);
         String sql = "SELECT mr_id, mr_name FROM medicine_reason Order By mr_name";
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             ResultSet rs = pst.executeQuery();

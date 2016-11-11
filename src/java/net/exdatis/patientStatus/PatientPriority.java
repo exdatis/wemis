@@ -65,6 +65,7 @@ public class PatientPriority {
     
     public static Map<String, Object> getPriorityMap(Connection connection) {
         Map<String, Object> m = new LinkedHashMap<>();
+        m.put("Izaberite prioritet", 0);
         String sql = "Select * From general_priorities Order by gp_id DESC";
         try (PreparedStatement pst = connection.prepareStatement(sql);) {
             ResultSet rs = pst.executeQuery();

@@ -26,10 +26,9 @@
                         </div>
 
                     </h:form> 
-                    <h3>Pretraga i unos novih pacijenata - korisnika</h3>
-                    <hr></hr>
                     <h:form>
                         <div align="left" class="divForm" >
+                            <h:outputLabel value=" Pretraga pacijenata"></h:outputLabel>
                             <h:panelGrid columns="3" border="0" bgcolor="silver">
                                 <h:selectOneMenu value="#{personBean.currentSearchArgument}" style="width: 215px">
                                     <f:selectItems value="#{personBean.argumentTypes}"></f:selectItems>
@@ -47,7 +46,7 @@
                         </div>
 
                     </h:form>
-                    <hr></hr>
+                    <h:outputLabel value= " Unos novog pacijenta"></h:outputLabel>
                     <tp:personForm
                         codeLabel="Šifra"
                         codeValue="#{personBean.personCode}"
@@ -72,9 +71,10 @@
                     </tp:personForm>
                 </div>
 
-                <hr></hr>
+
 
                 <div align="left" class="divSmallTable">
+                    <h:outputLabel value=" Tabela pacijent"></h:outputLabel>
                     <h:outputStylesheet library="css" name="tblCommon.css"></h:outputStylesheet>
                     <p:messages autoUpdate="true"></p:messages>
                     <h:form>
@@ -212,8 +212,7 @@
                         <h:outputText value="#{personBean.newPatientMsg}"></h:outputText>
                     </div>
 
-                    <h3>Prijava pregleda po osnovu zahteva </h3>
-                    <hr></hr>
+                    <h:outputLabel value=" Prijava pregleda po osnovu zahteva" style="font-family: Tahoma, Arial;"></h:outputLabel>
                     <tpw:wait_form_mow
                         roomLabel="Zahtevano uverenje"
                         roomValue="#{mowBean.waitReason}"
@@ -221,7 +220,7 @@
                         btnSubmitLabel="Prijavi stranku"
                         btnSubmit="#{mowBean.addWait()}">
                     </tpw:wait_form_mow>
-                    <hr></hr>
+                    <h:outputLabel value=" Tabela prijavljenih stranaka" style="font-family: Tahoma, Arial;"></h:outputLabel>
                     <!-- tblWait -->
                     <tpw:mow_wait_tbl
                         refreshLbl="Refresh"
@@ -250,13 +249,13 @@
                     <div align="center" class="divPrepareMsg">
                         <p:messages autoUpdate="true"></p:messages>
                         <h:outputText  value="#{mowBean.prepareMessageRoom}"></h:outputText>
-                        
+
                         <p:messages autoUpdate="true"></p:messages>
                         <h:outputText class="lblError"  value="#{mowBean.errorMessageRoom}"></h:outputText>
 
                     </div>
-                    <h3>Redosled pregleda </h3>
-                    <hr></hr>
+                    <h:outputLabel value=" Prijava pregleda" style="font-family: Tahoma, Arial;"></h:outputLabel>
+
                     <tpw:mow_wait_rooms_form
                         roomLabel="Kontrolni pregled"
                         roomValue="#{mowBean.mowwRoomRoomId}"
@@ -265,20 +264,21 @@
                         btnSubmit="#{mowBean.addRoom()}">
                     </tpw:mow_wait_rooms_form>
                     <hr></hr>
-                
-                <!-- tblWait -->
-                <tpw:moww_wait_rooms_tbl
-                    tblValue="#{mowBean.thisRooms}"
-                    idLbl="ID"
-                    idValue="#{currentRooms.mowwRoomId}"
-                    roomLbl="Čekaonica"
-                    roomValue="#{currentRooms.mowwRoomName}"
 
-                    btnDeleteLabel="Izbaci pregled"
-                    btnDelete="#{mowBean.deleteRoom(currentRooms)}"
-                    cannotEdit="#{not currentRooms.canEdit}"
-                    canEdit="#{currentRooms.canEdit}">
-                </tpw:moww_wait_rooms_tbl>
+                    <!-- tblWait -->
+                    <h:outputLabel value=" Lista prijavljenih pregleda" style="font-family: Tahoma, Arial;"></h:outputLabel>
+                    <tpw:moww_wait_rooms_tbl
+                        tblValue="#{mowBean.thisRooms}"
+                        idLbl="ID"
+                        idValue="#{currentRooms.mowwRoomId}"
+                        roomLbl="Čekaonica"
+                        roomValue="#{currentRooms.mowwRoomName}"
+
+                        btnDeleteLabel="Izbaci pregled"
+                        btnDelete="#{mowBean.deleteRoom(currentRooms)}"
+                        cannotEdit="#{not currentRooms.canEdit}"
+                        canEdit="#{currentRooms.canEdit}">
+                    </tpw:moww_wait_rooms_tbl>
                 </div>
             </ui:define>
             <ui:define name="footer">

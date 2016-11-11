@@ -56,8 +56,8 @@ and open the template in the editor.
     border-style: solid;
     overflow-x: auto; 
     overflow-y: auto;
-    height: 200px;; 
-    align-items: center
+    height: 100px; 
+    align-items: center;
 }
 
 .divBigTable{
@@ -80,6 +80,7 @@ and open the template in the editor.
     padding: 3px;
     background-color: gainsboro; 
     font-size: smaller;
+    font-family: Tahoma, Arial;
     border-radius: 0 0 15px 15px;
     border-color: cornflowerblue;
     border-collapse: collapse;
@@ -92,7 +93,7 @@ and open the template in the editor.
     padding: 3px; 
     background-color: darkgray;
     font-size: smaller;
-    height: 250px;
+    height: 200px;
     padding: 3px;
     overflow-x: auto; 
     overflow-y: auto; 
@@ -107,7 +108,7 @@ and open the template in the editor.
     padding: 3px; 
     background-color: darkgray;
     font-size: smaller;
-    height: 450px;
+    height: 350px;
     padding: 5px;
     overflow-x: auto; 
     overflow-y: auto; 
@@ -123,7 +124,7 @@ and open the template in the editor.
     border-radius: 15px 15px 15px 15px;
     background-color: brown;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .divPrepareMsg{
@@ -132,7 +133,7 @@ and open the template in the editor.
     background-color: cornflowerblue;
     color: navy;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 

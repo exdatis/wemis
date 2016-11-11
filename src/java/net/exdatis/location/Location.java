@@ -89,6 +89,8 @@ public class Location {
     
     public static Map<String, Object> getLocationsMap(Connection connection){
         Map<String, Object> map = new LinkedHashMap<>();
+        // blank
+        map.put("Izaberite mesto", 0);
         String sql = "Select l_id, l_name from locations Order by l_name";
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             ResultSet rs = pst.executeQuery();

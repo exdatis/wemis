@@ -80,6 +80,7 @@ public class AmbulanceRoom {
     
     public static Map<String, Object> roomMap(Connection connection){
         Map<String, Object> m = new LinkedHashMap<>();
+        m.put("Izaberite čekaonicu", 0);
         String sql = "Select awr_id, awr_name From ambulance_waiting_room Order by awr_name";
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             ResultSet rs = pst.executeQuery();

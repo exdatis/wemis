@@ -138,6 +138,7 @@ public class MOWwaitRooms implements CRUDdata{
     
     public static Map<String, Object> roomMap(Connection connection){
         Map<String, Object> m = new LinkedHashMap<>();
+        m.put("Izaberite pregled", 0);
         String sql = "Select mwr_id, mwr_name From medicine_waiting_room Order by mwr_name";
         try(PreparedStatement pst = connection.prepareStatement(sql);){
             ResultSet rs = pst.executeQuery();
