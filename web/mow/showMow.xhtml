@@ -32,6 +32,17 @@
                         </h:panelGrid>
                     </h:form>
                 </div>
+                <div align="center">
+                    <h:form>
+                        <!-- messages -->
+                        <div align="center" class="divErrorMsg">
+                            <p:messages autoUpdate="true"></p:messages>
+                            <h:outputText class="lblError"  value="#{swWait.errorMsg}"></h:outputText>
+
+                        </div>
+
+                    </h:form> 
+                </div>
 
                 <!-- tabela -->
                 <div align="left" style="background-color: silver; overflow: auto">
@@ -86,7 +97,7 @@
                             <h:column>
                                 <f:facet name ="header"></f:facet>
                                 <h:commandButton class="cmdBtn"
-                                                 action="#"
+                                                 action="#{swWait.primiPacijenta(wait)}"
                                                  rendered="#{not wait.canEdit}"
                                                  value="Primi stranku"
                                                  title="Prijem">

@@ -21,9 +21,11 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.wdb.Wdb;
@@ -33,7 +35,7 @@ import net.exdatis.wdb.Wdb;
  * @author morar
  */
 @ManagedBean(name = "swWait", eager = true)
-@ViewScoped
+@SessionScoped
 public class ShowMowWaitBean implements Serializable{
 
     // za db
@@ -51,22 +53,38 @@ public class ShowMowWaitBean implements Serializable{
     private String swReasonName;
     private Timestamp swTime;
     
+    // za poruke
+    private String errorMsg;
+    
     // za pretragu
-    private Map<String, Object> argumentTypes = ShowMowWait.argMap();
+    private Map<String, Object> argumentTypes;
     private int currentArg;
     
     // lista cekanja
     private ArrayList<ShowMowWait> standby;
+    // selektovano cekanje
+    private ShowMowWait selektovanoCekanje;
     // konekcija sa bazom
     private final Connection connection = Wdb.getDbConnection(this.currentUser, this.currentPwd, this.currentHost);
+    
+    // novouneti prijem ID broj
+    public static int uradjeniPrijem;
+    // moram da dodam i staticke promenjlive za osnovne podatke pacijenta
+    public static String prezimeIme;
+    public static String jmbg;
+    public static String uverenje;
     // inicijalizuj ArrayList standby
     @PostConstruct
     void init(){
-        this.standby = new ArrayList<>();
-        this.setCurrentArg(3);
+        standby = new ArrayList<>();
+        argumentTypes = new LinkedHashMap<>();
+        argumentTypes = ShowMowWait.argMap();
+        //standby = ShowMowWait.getAllWait(connection, 3);
     }
 
     public ShowMowWaitBean() {
+        //standby = new ArrayList<>();
+        //this.setCurrentArg(3);
     }
 
     public int getSwId() {
@@ -156,12 +174,101 @@ public class ShowMowWaitBean implements Serializable{
     public void setStandby(ArrayList<ShowMowWait> standby) {
         this.standby = standby;
     }
+
+    public ShowMowWait getSelektovanoCekanje() {
+        return selektovanoCekanje;
+    }
+
+    public void setSelektovanoCekanje(ShowMowWait selektovanoCekanje) {
+        this.selektovanoCekanje = selektovanoCekanje;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public static int getUradjeniPrijem() {
+        return uradjeniPrijem;
+    }
+
+    public static void setUradjeniPrijem(int uradjeniPrijem) {
+        ShowMowWaitBean.uradjeniPrijem = uradjeniPrijem;
+    }
+
+    public static String getPrezimeIme() {
+        return prezimeIme;
+    }
+
+    public static void setPrezimeIme(String prezimeIme) {
+        ShowMowWaitBean.prezimeIme = prezimeIme;
+    }
+
+    public static String getJmbg() {
+        return jmbg;
+    }
+
+    public static void setJmbg(String jmbg) {
+        ShowMowWaitBean.jmbg = jmbg;
+    }
+
+    public static String getUverenje() {
+        return uverenje;
+    }
+
+    public static void setUverenje(String uverenje) {
+        ShowMowWaitBean.uverenje = uverenje;
+    }
+    
+    
     
     // test za pretragu(mozda treba popraviti)
-    public String searchWait(){
-        this.standby = ShowMowWait.getAllWait(connection, currentArg);
+    public void searchWait(){
+        standby.clear();
+        System.out.println("Izabrani argument---------------------------------------------" + currentArg);
+        standby = ShowMowWait.getAllWait(connection, currentArg);
         
-        return null; // TODO: uraditi redirekciju na drugu jsf stranu uz slanje argumenta.
+        //return null; // TODO: uraditi redirekciju na drugu jsf stranu uz slanje argumenta.
+    }
+    
+    public String primiPacijenta(ShowMowWait cekanje){
+        this.setSelektovanoCekanje(cekanje);
+        // unwsi podatak u bazu
+        MowReception m = new MowReception();
+        m.setCekanjeId(cekanje.getSwId());
+        setUradjeniPrijem(m.getPrijemId());
+        setPrezimeIme(cekanje.getSwPersonName());
+        setJmbg(cekanje.getSwPersonJMBG());
+        setUverenje(cekanje.getSwReasonName());
+        standby.remove(cekanje);
+        String msg = m.insertRec(connection);
+        if(! msg.equalsIgnoreCase("yes")){
+            // treba i mesto za poruke
+            this.setErrorMsg(msg);
+            return null;
+        }
+        String url = "";
+        switch(cekanje.getSwRoom()){
+            case 1:
+                url = "psiholog";
+                break;
+            case 2:
+                url = "ocno";
+                break;
+            case 3:
+                url = "neuro";
+                break;
+            case 4:
+                url = "spec";
+                break;
+            default:
+                url = null;
+                break;
+        }
+        return url;
     }
     
 }
