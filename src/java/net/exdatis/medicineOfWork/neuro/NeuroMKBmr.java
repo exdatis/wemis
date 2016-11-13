@@ -17,7 +17,9 @@
  */
 package net.exdatis.medicineOfWork.neuro;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
 import net.exdatis.wdb.CRUDdata;
 
 /**
@@ -76,7 +78,21 @@ public class NeuroMKBmr implements CRUDdata{
 
     @Override
     public String insertRec(Connection connection) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String success = "no";
+        String sql = "{call save_neuro_mkb(?, ?, ?)}";
+        
+        try(CallableStatement cst = connection.prepareCall(sql);){
+            cst.setInt(1, this.getDijagnozaPrijem());
+            cst.setInt(2, this.getDijagnozaMKB());
+            cst.setString(3, this.getDijagnozaKomentar());
+            boolean added = cst.execute();
+        }catch(SQLException e){
+            String msg = "Error: " + e.getMessage();
+            System.out.println(msg);
+            return msg;
+        }
+        
+        return success;
     }
 
     @Override
