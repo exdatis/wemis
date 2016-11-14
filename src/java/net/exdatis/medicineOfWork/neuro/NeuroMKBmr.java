@@ -19,7 +19,10 @@ package net.exdatis.medicineOfWork.neuro;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import net.exdatis.wdb.CRUDdata;
 
 /**
@@ -31,6 +34,10 @@ public class NeuroMKBmr implements CRUDdata{
     private int dijagnozaPrijem;
     private int dijagnozaMKB;
     private String dijagnozaKomentar;
+    // iz pogleda
+    private String dijagnozaLatin;
+    private String dijagnozaSerbian;
+    
     private boolean canEdit;
 
     public NeuroMKBmr() {
@@ -68,12 +75,54 @@ public class NeuroMKBmr implements CRUDdata{
         this.dijagnozaKomentar = dijagnozaKomentar;
     }
 
+    public String getDijagnozaLatin() {
+        return dijagnozaLatin;
+    }
+
+    public void setDijagnozaLatin(String dijagnozaLatin) {
+        this.dijagnozaLatin = dijagnozaLatin;
+    }
+
+    public String getDijagnozaSerbian() {
+        return dijagnozaSerbian;
+    }
+
+    public void setDijagnozaSerbian(String dijagnozaSerbian) {
+        this.dijagnozaSerbian = dijagnozaSerbian;
+    }
+    
+    
+
     public boolean isCanEdit() {
         return canEdit;
     }
 
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+    
+    public static ArrayList<NeuroMKBmr> getDijagnozePoPrijemu(Connection connection, int prijemId){
+        ArrayList<NeuroMKBmr> m = new ArrayList<>();
+        String sql = "select * from view_mr_neuro_mkb where mnm_prijem = ?";
+        try(PreparedStatement pst = connection.prepareStatement(sql);){
+            pst.setInt(1, prijemId);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                NeuroMKBmr mr = new NeuroMKBmr();
+                mr.setDijagnozaId(rs.getInt(1));
+                mr.setDijagnozaPrijem(rs.getInt(2));
+                mr.setDijagnozaMKB(rs.getInt(3));
+                mr.setDijagnozaKomentar(rs.getString(4));
+                mr.setDijagnozaLatin(rs.getString(5));
+                mr.setDijagnozaSerbian(rs.getString(6));
+                m.add(mr);
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return m;
+        }
+        
+        return m;
     }
 
     @Override

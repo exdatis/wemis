@@ -19,6 +19,8 @@ package net.exdatis.medicineOfWork.neuro;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.exdatis.wdb.CRUDdata;
 
@@ -174,6 +176,37 @@ public class NeuroUpitnikMR implements CRUDdata{
 
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+    
+    public static NeuroUpitnikMR getUpitnikPoPrijemu(Connection connection, int prijemId){
+        NeuroUpitnikMR u = new NeuroUpitnikMR();
+        String sql = "select * from mr_neuro_upitnik Where mnu_prijem = ?";
+        try(PreparedStatement pst = connection.prepareStatement(sql);){
+            pst.setInt(1, prijemId);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                u.setUpitnikId(rs.getInt(1));
+                u.setUpitnikPrijem(rs.getInt(2));
+                u.setTraumeBGS(rs.getInt(3));
+                u.setTraumeSGS(rs.getInt(4));
+                u.setNesvestice(rs.getInt(5));
+                u.setVrtoglavice(rs.getInt(6));
+                u.setPadavica(rs.getInt(7));
+                u.setNeurotskeSmetnje(rs.getInt(8));
+                u.setAlkohol(rs.getInt(9));
+                u.setDrogaLekovi(rs.getInt(10));
+                u.setLecenBolnica(rs.getInt(11));
+                u.setLecenAmbulanta(rs.getInt(12));
+                u.setNeuroStatus(rs.getInt(13));
+                u.setPsihoStatus(rs.getInt(14));
+                u.setEeg(rs.getInt(15));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return u;
+        }
+        
+        return u;
     }
 
     @Override

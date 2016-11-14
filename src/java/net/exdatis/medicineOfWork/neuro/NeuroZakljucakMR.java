@@ -19,6 +19,8 @@ package net.exdatis.medicineOfWork.neuro;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.exdatis.wdb.CRUDdata;
 
@@ -89,6 +91,27 @@ public class NeuroZakljucakMR implements CRUDdata{
 
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+    
+    public static NeuroZakljucakMR getZakljucakPoPrijemu(Connection connection, int prijemId){
+        NeuroZakljucakMR z = new NeuroZakljucakMR();
+        String sql = "select * from mr_neuro_zakljucak where mnz_prijem = ?";
+        
+        try(PreparedStatement pst = connection.prepareStatement(sql);){
+            pst.setInt(1, prijemId);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                z.setZakljucakId(rs.getInt(1));
+                z.setZakljucakPrijem(rs.getInt(2));
+                z.setZakljucakSposoban(rs.getInt(3));
+                z.setZakljucakKomentar(rs.getString(4));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return z;
+        }
+        
+        return z;
     }
 
     @Override

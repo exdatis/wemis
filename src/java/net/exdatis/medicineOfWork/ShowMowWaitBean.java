@@ -26,7 +26,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import net.exdatis.operator.CurrentUserBean;
 import net.exdatis.wdb.Wdb;
 

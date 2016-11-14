@@ -19,6 +19,8 @@ package net.exdatis.medicineOfWork.neuro;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.exdatis.wdb.CRUDdata;
 
@@ -68,7 +70,24 @@ public class NeuroAnamnezaMR implements CRUDdata{
         this.anamnezaTekst = anamnezaTekst;
     }
     
-    
+    public static NeuroAnamnezaMR getAnamnezaPoPrijemu(Connection connection, int prijemId){
+        NeuroAnamnezaMR a = new NeuroAnamnezaMR();
+        String sql = "select * from mr_neuro_anamneza where mna_prijem = ?";
+        try(PreparedStatement pst = connection.prepareStatement(sql);){
+            pst.setInt(1, prijemId);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                a.setAnamnezaId(rs.getInt(1));
+                a.setAnamnezaPrijem(rs.getInt(2));
+                a.setAnamnezaTekst(rs.getString(3));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return a;
+        }
+        
+        return a;
+    }
 
     @Override
     public String insertRec(Connection connection) {
