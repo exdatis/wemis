@@ -252,16 +252,16 @@ public class ShowMowWaitBean implements Serializable{
         String url = "";
         switch(cekanje.getSwRoom()){
             case 1:
-                url = "psiholog";
+                url = "psihologMR";
                 break;
             case 2:
-                url = "ocno";
+                url = "ocnoMR";
                 break;
             case 3:
-                url = "neuro";
+                url = "neuroMR";
                 break;
             case 4:
-                url = "spec";
+                url = "specMR";
                 break;
             default:
                 url = null;

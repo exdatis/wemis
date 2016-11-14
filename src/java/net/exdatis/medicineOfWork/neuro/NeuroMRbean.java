@@ -51,6 +51,14 @@ public class NeuroMRbean implements Serializable{
     */
     
     private int prijemID; // njega treba prvog pronaci
+    // uzeti osnovne pdoatke pacijenta za ugodniji rad da lekar ne zaboravi skim radi???
+    private String infoPacijent;
+    
+    /*
+        Opsti odeljak, poruke.
+    */
+    
+    private String poruka;
     
     /*
         Clanovi klase za anamnezu (neuropsihijatrija - medicina rada).
@@ -88,6 +96,9 @@ public class NeuroMRbean implements Serializable{
     private int dijagnozaPrijem;
     private int dijagnozaMKB;
     private String dijagnozaKomentar;
+    // iz pogleda
+    private String dijagnozaLatin;
+    private String dijagnozaSerbian;
     
     private NeuroMKBmr selectedNeuroMKB;
     
@@ -124,7 +135,7 @@ public class NeuroMRbean implements Serializable{
         selectedAnamneza = NeuroAnamnezaMR.getAnamnezaPoPrijemu(connection, prijemID);
         selectedUpitnik = NeuroUpitnikMR.getUpitnikPoPrijemu(connection, prijemID);
         selectedNeuroMKB = new NeuroMKBmr();
-        listaDijagnoza = new ArrayList<>();
+        listaDijagnoza = NeuroMKBmr.getDijagnozePoPrijemu(connection, prijemID);
         // pretraga mkb
         argPretrageMKB = MKB.mkbMapaArgumenata();
         // lista mkb sifarnika pronadjena u pretrazi
@@ -132,7 +143,13 @@ public class NeuroMRbean implements Serializable{
         // dijagnoza selektovana za unos (kod neuro mkb)
         selectedMKB = new MKB();
         // akrivan -selektovan zakljucak
-        selectedZakljucak = new NeuroZakljucakMR();
+        selectedZakljucak = NeuroZakljucakMR.getZakljucakPoPrijemu(connection, prijemID);
+        // kreiraj info poruku
+        String ime = ShowMowWaitBean.prezimeIme;
+        String jmb = ShowMowWaitBean.jmbg;
+        String uverenje = ShowMowWaitBean.uverenje;
+        String info = " " + ime + " JMBG: " + jmb + " uverenje: " + uverenje;
+        setInfoPacijent(info);
     }
     
     // get-set
@@ -337,6 +354,24 @@ public class NeuroMRbean implements Serializable{
         this.dijagnozaKomentar = dijagnozaKomentar;
     }
 
+    public String getDijagnozaLatin() {
+        return dijagnozaLatin;
+    }
+
+    public void setDijagnozaLatin(String dijagnozaLatin) {
+        this.dijagnozaLatin = dijagnozaLatin;
+    }
+
+    public String getDijagnozaSerbian() {
+        return dijagnozaSerbian;
+    }
+
+    public void setDijagnozaSerbian(String dijagnozaSerbian) {
+        this.dijagnozaSerbian = dijagnozaSerbian;
+    }
+    
+    
+
     public NeuroMKBmr getSelectedNeuroMKB() {
         return selectedNeuroMKB;
     }
@@ -431,6 +466,30 @@ public class NeuroMRbean implements Serializable{
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public String getInfoPacijent() {
+        return infoPacijent;
+    }
+
+    public void setInfoPacijent(String infoPacijent) {
+        this.infoPacijent = infoPacijent;
+    }
+
+    public String getPoruka() {
+        return poruka;
+    }
+
+    public void setPoruka(String poruka) {
+        this.poruka = poruka;
+    }
+    
+    
+    
+    // sacuvaj anamnezu
+    public String saveAnamneza(){
+        setPoruka("Test poruka broj jedan");
+        return null;
     }
     
     
