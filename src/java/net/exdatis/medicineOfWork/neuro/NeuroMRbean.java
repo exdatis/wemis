@@ -74,18 +74,31 @@ public class NeuroMRbean implements Serializable{
     private int upitnikId;
     private int upitnikPrijem;
     private int traumeBGS;
+    private boolean traumeBGSbool;
     private int traumeSGS;
+    private boolean traumeSGSbool;
     private int nesvestice;
+    private boolean nesvesticeBool;
     private int vrtoglavice;
+    private boolean vrtoglaviceBool;
     private int padavica;
+    private boolean padavicaBool;
     private int neurotskeSmetnje;
+    private boolean neurotskeSmetnjeBool;
     private int alkohol;
+    private boolean alkoholBool;
     private int drogaLekovi;
+    private boolean drogaLekoviBool;
     private int lecenBolnica;
+    private boolean lecenBolnicaBool;
     private int lecenAmbulanta;
+    private boolean lecenAmbulantaBool;
     private int neuroStatus;
+    private boolean neuroStatusBool;
     private int psihoStatus;
+    private boolean psihoStatusBool;
     private int eeg;
+    private boolean eegBool;
     
     private NeuroUpitnikMR selectedUpitnik;
     /* Clanovi klase za neuro-mkb (lista dijagnoza , neuropsihijatrija - 
@@ -210,6 +223,111 @@ public class NeuroMRbean implements Serializable{
         this.upitnikPrijem = upitnikPrijem;
     }
 
+    public boolean isTraumeBGSbool() {
+        return traumeBGSbool;
+    }
+
+    public void setTraumeBGSbool(boolean traumeBGSbool) {
+        this.traumeBGSbool = traumeBGSbool;
+    }
+
+    public boolean isTraumeSGSbool() {
+        return traumeSGSbool;
+    }
+
+    public void setTraumeSGSbool(boolean traumeSGSbool) {
+        this.traumeSGSbool = traumeSGSbool;
+    }
+
+    public boolean isNesvesticeBool() {
+        return nesvesticeBool;
+    }
+
+    public void setNesvesticeBool(boolean nesvesticeBool) {
+        this.nesvesticeBool = nesvesticeBool;
+    }
+
+    public boolean isVrtoglaviceBool() {
+        return vrtoglaviceBool;
+    }
+
+    public void setVrtoglaviceBool(boolean vrtoglaviceBool) {
+        this.vrtoglaviceBool = vrtoglaviceBool;
+    }
+
+    public boolean isPadavicaBool() {
+        return padavicaBool;
+    }
+
+    public void setPadavicaBool(boolean padavicaBool) {
+        this.padavicaBool = padavicaBool;
+    }
+
+    public boolean isNeurotskeSmetnjeBool() {
+        return neurotskeSmetnjeBool;
+    }
+
+    public void setNeurotskeSmetnjeBool(boolean neurotskeSmetnjeBool) {
+        this.neurotskeSmetnjeBool = neurotskeSmetnjeBool;
+    }
+
+    public boolean isAlkoholBool() {
+        return alkoholBool;
+    }
+
+    public void setAlkoholBool(boolean alkoholBool) {
+        this.alkoholBool = alkoholBool;
+    }
+
+    public boolean isDrogaLekoviBool() {
+        return drogaLekoviBool;
+    }
+
+    public void setDrogaLekoviBool(boolean drogaLekoviBool) {
+        this.drogaLekoviBool = drogaLekoviBool;
+    }
+
+    public boolean isLecenBolnicaBool() {
+        return lecenBolnicaBool;
+    }
+
+    public void setLecenBolnicaBool(boolean lecenBolnicaBool) {
+        this.lecenBolnicaBool = lecenBolnicaBool;
+    }
+
+    public boolean isLecenAmbulantaBool() {
+        return lecenAmbulantaBool;
+    }
+
+    public void setLecenAmbulantaBool(boolean lecenAmbulantaBool) {
+        this.lecenAmbulantaBool = lecenAmbulantaBool;
+    }
+
+    public boolean isNeuroStatusBool() {
+        return neuroStatusBool;
+    }
+
+    public void setNeuroStatusBool(boolean neuroStatusBool) {
+        this.neuroStatusBool = neuroStatusBool;
+    }
+
+    public boolean isPsihoStatusBool() {
+        return psihoStatusBool;
+    }
+
+    public void setPsihoStatusBool(boolean psihoStatusBool) {
+        this.psihoStatusBool = psihoStatusBool;
+    }
+
+    public boolean isEegBool() {
+        return eegBool;
+    }
+
+    public void setEegBool(boolean eegBool) {
+        this.eegBool = eegBool;
+    }
+
+    
     public int getTraumeBGS() {
         return traumeBGS;
     }
@@ -489,6 +607,12 @@ public class NeuroMRbean implements Serializable{
     // sacuvaj anamnezu
     public String saveAnamneza(){
         setPoruka("Test poruka broj jedan");
+        return null;
+    }
+    
+    // sacuvaj anamnezu
+    public String saveUpitnik(){
+        setPoruka("Test poruka broj dva");
         return null;
     }
     

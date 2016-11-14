@@ -20,7 +20,37 @@
                 btnSubmitAnamneza="#{neuroMRbean.saveAnamneza()}">
             </tp:anamnezaForm>
             <h:outputLabel value="Upitnik" style="font-family: Tahoma, Arial; font-size: medium; display: block; background-color: navy; color: yellow; width: 99%"></h:outputLabel>
-
+            
+            <tp:upitnikForm
+                traumeBGStitle="Traume glave bez gubitka svesti"
+                traumeBGSvrednost="#{neuroMRbean.traumeBGSbool}"
+                traumeSGStitle="Traume glave sa gubitkom svesti"
+                traumeSGSvrednost="#{neuroMRbean.traumeSGSbool}"
+                nesvesticeTitle="Nesvestice"
+                nesvesticeVrednost="#{neuroMRbean.nesvesticeBool}"
+                vrtoglaviceTitle="Vrtoglavice"
+                vrtoglaviceVrednost="#{neuroMRbean.vrtoglaviceBool}"
+                padaviceTitle="Padavice"
+                padaviceVrednost="#{neuroMRbean.padavicaBool}"
+                neuroSmetnjeTitle="Neurotske smetnje"
+                neuroSmetnjeVrednost="#{neuroMRbean.neurotskeSmetnjeBool}"
+                alkohoTitle="Uživanje alkohola"
+                alkoholVrednost="#{neuroMRbean.alkoholBool}"
+                drogaTitle="Zavisnost od droge i lekova"
+                lecenHTitle="Lečen u bolnici"
+                lecenHVrednost="#{neuroMRbean.lecenBolnicaBool}"
+                lecenATitle="Lečen ambulantno"
+                lecenAVrednost="#{neuroMRbean.lecenAmbulantaBool}"
+                neuroStatusTitle="Neurološki status uredan"
+                neuroStatusVrednost="#{neuroMRbean.neuroStatusBool}"
+                psihoStatusTitle="Psihički status uredan"
+                eegTitle="EEG uredan"
+                eegVrednost="#{neuroMRbean.eegBool}"
+                submitUpitnikTitle="Sačuvaj"
+                btnSubmitUpitnik="#{neuroMRbean.saveUpitnik()}">
+            </tp:upitnikForm>
+            <br></br>
+            <h:outputLabel value="Uspostavljene dijagnoze prema MKB šifarniku" style="font-family: Tahoma, Arial; font-size: medium; display: block; background-color: navy; color: yellow; width: 99%"></h:outputLabel>
         </div>
 
     </h:body>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="traumeBGStitle"></composite:attribute>
+        <composite:attribute name="traumeBGSvrednost"></composite:attribute>
+        <composite:attribute name="traumeSGStitle"></composite:attribute>
+        <composite:attribute name="traumeSGSvrednost"></composite:attribute>
+        <composite:attribute name="nesvesticeTitle"></composite:attribute>
+        <composite:attribute name="nesvesticeVrednost"></composite:attribute>
+        <composite:attribute name="vrtoglaviceTitle"></composite:attribute>
+        <composite:attribute name="vrtoglaviceVrednost"></composite:attribute>
+        <composite:attribute name="padaviceTitle"></composite:attribute>
+        <composite:attribute name="padaviceVrednost"></composite:attribute>
+        <composite:attribute name="neuroSmetnjeTitle"></composite:attribute>
+        <composite:attribute name="neuroSmetnjeVrednost"></composite:attribute>
+        <composite:attribute name="alkohoTitle"></composite:attribute>
+        <composite:attribute name="alkoholVrednost"></composite:attribute>
+        <composite:attribute name="drogaTitle"></composite:attribute>
+        <composite:attribute name="drogaVrednost"></composite:attribute>
+        <composite:attribute name="lecenHTitle"></composite:attribute>
+        <composite:attribute name="lecenHVrednost"></composite:attribute>
+        <composite:attribute name="lecenATitle"></composite:attribute>
+        <composite:attribute name="lecenAVrednost"></composite:attribute>
+        <composite:attribute name="neuroStatusTitle"></composite:attribute>
+        <composite:attribute name="neuroStatusVrednost"></composite:attribute>
+        <composite:attribute name="psihoStatusTitle"></composite:attribute>
+        <composite:attribute name="psihoStatusVrednost"></composite:attribute>
+        <composite:attribute name="eegTitle"></composite:attribute>
+        <composite:attribute name="eegVrednost"></composite:attribute>
+        <composite:attribute name="submitUpitnikTitle"></composite:attribute>
+        <composite:attribute
+            name="btnSubmitUpitnik"
+            method-signature="java.lang.String saveUpitnik()">
+        </composite:attribute>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+        <h:form>
+            <h:panelGrid columns="12">
+                <h:selectBooleanCheckbox value="#{cc.attrs.traumeBGSvrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.traumeBGStitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.traumeSGSvrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.traumeSGStitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.nesvesticeVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.nesvesticeTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.vrtoglaviceVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.vrtoglaviceTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.padaviceVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.padaviceTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.neuroSmetnjeVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.neuroSmetnjeTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.alkoholVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.alkohoTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.drogaVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.drogaTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.lecenHVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.lecenHTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.lecenAVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.lecenATitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.neuroStatusVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.neuroStatusTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.psihoStatusVrednost}"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.psihoStatusTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+                <h:selectBooleanCheckbox value="#{cc.attrs.eegVrednost}" style="font-family: Tahoma, Arial; color: navy"></h:selectBooleanCheckbox>
+                <h:outputText value="#{cc.attrs.eegTitle}" style="font-family: Tahoma, Arial; color: navy"></h:outputText>
+            </h:panelGrid>
+            
+            <h:commandButton
+                action="#{cc.attrs.btnSubmitUpitnik}"
+                value="#{cc.attrs.submitUpitnikTitle}"
+                class="cmdBtn"
+                title="Sačuvaj zapis">
+            </h:commandButton>
+            
+        </h:form>
+    </composite:implementation>
+
+</html>
+
